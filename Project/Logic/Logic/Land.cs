@@ -4,7 +4,26 @@ using System.Text;
 
 namespace Logic
 {
-    class Land
+    public class Land
     {
+        public string naam { get; private set; }
+        public int inwonersaantal { get; private set; }
+        public decimal straatbezetting { get; private set; }
+        public decimal doktersbezoeken { get; private set; }
+        public List<Maatregel> maatregels;
+
+        public Land(string naam, int inwoners, decimal sb, decimal db)
+        {
+            this.naam = naam;
+            this.inwonersaantal = inwoners;
+            this.straatbezetting = sb;
+            this.doktersbezoeken = db;
+            maatregels = new List<Maatregel>();
+        }
+
+        public void MaatregelToevoegen(Maatregel maatregel)
+        {
+            this.maatregels.Add(maatregel);
+        }
     }
 }
