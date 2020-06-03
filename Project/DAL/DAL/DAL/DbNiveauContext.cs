@@ -8,7 +8,7 @@ namespace DAL
 {
     public class DbNiveauContext: DbContext
     {
-        public DalNiveau VraagNiveauOpUitDatabase()
+        public DalNiveau VraagNiveauOpUitDatabase(string niveau)
         {
             string query = "";
             DalNiveau resultaat = new DalNiveau();
@@ -18,6 +18,7 @@ namespace DAL
                 {
                     MySqlCommand cmd = new MySqlCommand();
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {

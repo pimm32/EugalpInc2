@@ -9,7 +9,7 @@ namespace DAL
 {
     class DbMaatregelCategorieContext: DbContext
     {
-        public List<DalMaatregelCategorie> VraagAlleMaatregelCategorienOpUitDatabase()
+        public IEnumerable<DalMaatregelCategorie> VraagAlleMaatregelCategorienOpUitDatabase()
         {
             List<DalMaatregelCategorie> resultaat = new List<DalMaatregelCategorie>();
             string query = "";
