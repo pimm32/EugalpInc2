@@ -6,29 +6,27 @@ using System.Text;
 
 namespace DAL
 {
-    public class DbNiveauContext: DbContext
+    public class DbSymptoomCategorieContext:DbContext
     {
-        public DalNiveau VraagNiveauOpUitDatabase()
+        public List<DalSymptoomCategorie> VraagAlleSymptoomCategorienOpUitDatabase()
         {
+            List<DalSymptoomCategorie> resultaat = new List<DalSymptoomCategorie>();
             string query = "";
-            DalNiveau resultaat = new DalNiveau();
             if (this.OpenConnection())
             {
                 try
                 {
-                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        resultaat.naam = dataReader.GetString(0);
-                        resultaat.standaardBesmettingsgraad = dataReader.GetDecimal(1);
-                        resultaat.standaardHerkenbaarheidsgraad = dataReader.GetDecimal(2);
-                        resultaat.standaardSterftegraad = dataReader.GetDecimal(3);
+                        DalSymptoomCategorie symptoomCategorie = new DalSymptoomCategorie();
+                        symptoomCategorie.naam = dataReader.GetString(0);
+                        resultaat.Add(symptoomCategorie);
                     }
-                    dataReader.Close();
                 }
-                catch(Exception exception)
+                catch (Exception exception)
                 {
                     resultaat = null;
                     throw new Exception(exception.ToString());
@@ -38,4 +36,5 @@ namespace DAL
             return resultaat;
         }
     }
+}
 }

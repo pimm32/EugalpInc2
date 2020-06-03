@@ -13,5 +13,7 @@ namespace DAL.DalModels
         public decimal besmettingenGrens { get; set; }
         public decimal geregistreerdeBesmettingenGrens { get; set; }
         public decimal sterfteGrens { get; set; }
+        public DalMaatregelCategorie categorie { get; set; }
+        public DalNiveau niveau { get; set; }
     }
 }

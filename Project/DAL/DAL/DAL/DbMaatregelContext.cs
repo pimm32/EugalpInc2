@@ -9,16 +9,24 @@ namespace DAL
 {
     public class DbMaatregelContext: DbContext
     {
-        public void MaatregelOpslaanInDatabase()
+        public void MaatregelOpslaanInDatabase(DalMaatregel maatregel)
         {
-            string query = "";
+            string query = "MaatregelToevoegen";
             if (this.OpenConnection())
             {
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue();
+                    cmd.Parameters.Add("@naam", MySqlDbType.VarChar).Value = maatregel.naam;
+                    cmd.Parameters.Add("@straatBezettingFactor", MySqlDbType.Decimal).Value = maatregel.straatbezettingFactor;
+                    cmd.Parameters.Add("@doktersBezoekenFactor", MySqlDbType.Decimal).Value = maatregel.doktersbezoekenFactor;
+                    cmd.Parameters.Add("@besmettingenGrens", MySqlDbType.Decimal).Value = maatregel.besmettingenGrens;
+                    cmd.Parameters.Add("@geregistreerdeBesmettingenGrens", MySqlDbType.Decimal).Value = maatregel.geregistreerdeBesmettingenGrens;
+                    cmd.Parameters.Add("@sterfteGrens", MySqlDbType.Decimal).Value = maatregel.sterfteGrens;
+                    cmd.Parameters.Add("@ernst", MySqlDbType.Int32).Value = maatregel.ernst;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = maatregel.categorie.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau.naam;
                     cmd.ExecuteNonQuery();
                 }
                 catch(Exception exception)
@@ -30,7 +38,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelAanpassenInDatabase()
+        public void MaatregelAanpassenInDatabase(DalMaatregel maatregel)
         {
             string query = "";
             if (this.OpenConnection())
@@ -39,7 +47,15 @@ namespace DAL
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue();
+                    cmd.Parameters.Add("@naam", MySqlDbType.VarChar).Value = maatregel.naam;
+                    cmd.Parameters.Add("@straatBezettingFactor", MySqlDbType.Decimal).Value = maatregel.straatbezettingFactor;
+                    cmd.Parameters.Add("@doktersBezoekenFactor", MySqlDbType.Decimal).Value = maatregel.doktersbezoekenFactor;
+                    cmd.Parameters.Add("@besmettingenGrens", MySqlDbType.Decimal).Value = maatregel.besmettingenGrens;
+                    cmd.Parameters.Add("@geregistreerdeBesmettingenGrens", MySqlDbType.Decimal).Value = maatregel.geregistreerdeBesmettingenGrens;
+                    cmd.Parameters.Add("@sterfteGrens", MySqlDbType.Decimal).Value = maatregel.sterfteGrens;
+                    cmd.Parameters.Add("@ernst", MySqlDbType.Int32).Value = maatregel.ernst;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = maatregel.categorie.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau.naam;
                     cmd.ExecuteNonQuery();
                 }
                 catch(Exception exception)
@@ -50,7 +66,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelVerwijderenUitDatabase()
+        public void MaatregelVerwijderenUitDatabase(DalMaatregel maatregel)
         {
             string query = "";
             if (this.OpenConnection())
@@ -59,6 +75,8 @@ namespace DAL
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@naam", MySqlDbType.String).Value = maatregel.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau.naam;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -68,7 +86,29 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public List<DalMaatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase()
+
+        public void MaatregelActiefInLandIntDatabaseOpslaan(DalMaatregel maatregel, DalLand land)
+        {
+
+            string query = "";
+            if (this.OpenConnection())
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@maatregel", MySqlDbType.String).Value = maatregel.naam;
+                    cmd.Parameters.Add("@land", MySqlDbType.String).Value = land.naam;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception(exception.ToString());
+                }
+                this.CloseConnection();
+            }
+        }
+        public List<DalMaatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase(DalNiveau niveau)
         {
             string query = "";
             List<DalMaatregel> resultaat = new List<DalMaatregel>();
@@ -78,6 +118,7 @@ namespace DAL
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau.naam;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {

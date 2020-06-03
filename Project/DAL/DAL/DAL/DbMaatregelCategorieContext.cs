@@ -2,31 +2,30 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DAL
 {
-    public class DbNiveauContext: DbContext
+    class DbMaatregelCategorieContext: DbContext
     {
-        public DalNiveau VraagNiveauOpUitDatabase()
+        public List<DalMaatregelCategorie> VraagAlleMaatregelCategorienOpUitDatabase()
         {
+            List<DalMaatregelCategorie> resultaat = new List<DalMaatregelCategorie>();
             string query = "";
-            DalNiveau resultaat = new DalNiveau();
             if (this.OpenConnection())
             {
                 try
                 {
-                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        resultaat.naam = dataReader.GetString(0);
-                        resultaat.standaardBesmettingsgraad = dataReader.GetDecimal(1);
-                        resultaat.standaardHerkenbaarheidsgraad = dataReader.GetDecimal(2);
-                        resultaat.standaardSterftegraad = dataReader.GetDecimal(3);
+                        DalMaatregelCategorie maatregelCategorie = new DalMaatregelCategorie();
+                        maatregelCategorie.naam = dataReader.GetString(0);
+                        resultaat.Add(maatregelCategorie);
                     }
-                    dataReader.Close();
                 }
                 catch(Exception exception)
                 {
