@@ -14,7 +14,7 @@ namespace Logic
             symptomen = new List<Symptoom>();
         }
 
-        public void SymptoomToevoegen(string naam, decimal bgf, decimal hgf, decimal sgf, int ernst, int prijs)
+        public void SymptoomToevoegen(string naam, double bgf, double hgf, double sgf, int ernst, int prijs)
         {
             Symptoom symptoom = new Symptoom(naam, bgf, hgf, sgf, ernst, prijs);
             this.symptomen.Add(symptoom);

@@ -19,17 +19,17 @@ namespace Logic
             this.aantalSterfgevalen = 0;
         }
 
-        public void BerekenNieuweBesmettingen(Decimal besmettingsgraad)
+        public void BerekenNieuweBesmettingen(double besmettingsgraad)
         {
             
         }
 
-        public void BerekenNieuweGeregistreerdeBesmettingen(Decimal herkenbaarheidsgraad)
+        public void BerekenNieuweGeregistreerdeBesmettingen(double herkenbaarheidsgraad)
         {
 
         }
 
-        public void BerekenNieuweSterfgevallen(Decimal sterftegraad)
+        public void BerekenNieuweSterfgevallen(double sterftegraad)
         {
 
         }

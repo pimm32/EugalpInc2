@@ -8,14 +8,14 @@ namespace Logic
     public class Symptoom
     {
         public string naam { get; set; }
-        public decimal besmettingsgraadFactor { get; set; }
-        public decimal herkenbaarheidsgraadFactor { get; set; }
-        public decimal sterftegraadFactor { get; set; }
+        public double besmettingsgraadFactor { get; set; }
+        public double herkenbaarheidsgraadFactor { get; set; }
+        public double sterftegraadFactor { get; set; }
         public int ernst { get; set; }
         public int prijs { get; set; }
         public bool actief { get; set; }
 
-        public Symptoom(string naam, decimal bgf, decimal hgf, decimal sgf, int ernst, int prijs)
+        public Symptoom(string naam, double bgf, double hgf, double sgf, int ernst, int prijs)
         {
             this.naam = naam;
             this.besmettingsgraadFactor = bgf;

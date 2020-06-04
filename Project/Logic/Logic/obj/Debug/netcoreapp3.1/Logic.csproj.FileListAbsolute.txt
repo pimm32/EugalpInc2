@@ -1,0 +1,13 @@
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\obj\Debug\netcoreapp3.1\Logic.csprojAssemblyReference.cache
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\obj\Debug\netcoreapp3.1\Logic.AssemblyInfoInputs.cache
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\obj\Debug\netcoreapp3.1\Logic.AssemblyInfo.cs
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\obj\Debug\netcoreapp3.1\Logic.csproj.CoreCompileInputs.cache
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\bin\Debug\netcoreapp3.1\Logic.exe
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\bin\Debug\netcoreapp3.1\Logic.deps.json
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\bin\Debug\netcoreapp3.1\Logic.runtimeconfig.json
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\bin\Debug\netcoreapp3.1\Logic.runtimeconfig.dev.json
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\bin\Debug\netcoreapp3.1\Logic.dll
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\bin\Debug\netcoreapp3.1\Logic.pdb
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\obj\Debug\netcoreapp3.1\Logic.dll
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\obj\Debug\netcoreapp3.1\Logic.pdb
+C:\Users\pim-a\source\EugalpInc\Project\Logic\Logic\obj\Debug\netcoreapp3.1\Logic.genruntimeconfig.cache
