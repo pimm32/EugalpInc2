@@ -1,14 +1,16 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    public class DbUitbraakContext: DbContext
+    public class DbUitbraakContext: DbContext, IDbUitbraakContext
     {
-        public void UitbraakOpslaanInDatabase(DalUitbraak uitbraak, DalVirus virus)
+        public void UitbraakOpslaanInDatabase(Uitbraak uitbraak, Virus virus)
         {
             string query = "";
             if (this.OpenConnection())
@@ -33,7 +35,7 @@ namespace DAL
             }
         }
 
-        public void UitbraakAanpassenInDatabase(DalUitbraak uitbraak, DalVirus virus)
+        public void UitbraakAanpassenInDatabase(Uitbraak uitbraak, Virus virus)
         {
             string query = "";
             if (this.OpenConnection())
@@ -57,10 +59,10 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public List<DalUitbraak> VraagAlleUitbrakenOpVanVirusUitDatabase(DalVirus virus)
+        public IEnumerable<Uitbraak> VraagAlleUitbrakenOpVanVirusUitDatabase(Virus virus)
         {
             string query = "";
-            List<DalUitbraak> resultaat = new List<DalUitbraak>();
+            List<Uitbraak> resultaat = new List<Uitbraak>();
             if (this.OpenConnection())
             {
                 try
@@ -70,15 +72,17 @@ namespace DAL
                     cmd.Parameters.Add("@virus", MySqlDbType.String).Value = virus.naam;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
-                    {
-                        DalUitbraak uitbraak = new DalUitbraak();
-                        DalLand land = new DalLand();
-                        land.naam = dataReader.GetString(0);
-                        uitbraak.land = land;
-                        uitbraak.aantalBesmettingen = dataReader.GetInt32(1);
-                        uitbraak.aantalGeregistreerdeBesmettingen = dataReader.GetInt32(2);
-                        uitbraak.aantalSterfgevalen = dataReader.GetInt32(3);
-                        resultaat.Add(uitbraak);
+                        {
+                        //    Uitbraak uitbraak = new Uitbraak();
+                        //    Land land = new Land();
+                        //    DbLandContext context = new DbLandContext();
+                        //    land = context.
+                        //    uitbraak.land = land;
+                        //    uitbraak.aantalBesmettingen = dataReader.GetInt32(1);
+                        //    uitbraak.aantalGeregistreerdeBesmettingen = dataReader.GetInt32(2);
+                        //    uitbraak.aantalSterfgevalen = dataReader.GetInt32(3);
+                        //    resultaat.Add(uitbraak);
+                        return null;
                     }
                     dataReader.Close();
                 }

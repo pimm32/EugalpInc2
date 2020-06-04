@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Logic.DAL_Interfaces;
+using Logic.Logic_Interfaces;
 
 namespace Logic
 {
-    public class SymptoomCategorie
+    public class SymptoomCategorie: ISymptoomCategorie
     {
-        public string naam { get; set; }
+        public string naam { get; private set; }
         public List<Symptoom> symptomen;
+        private readonly IDbSymptoomCategorieContext _context;
 
-        public SymptoomCategorie()
+        public SymptoomCategorie(string naam)
         {
             symptomen = new List<Symptoom>();
         }
 
-        public void SymptoomToevoegen(string naam, double bgf, double hgf, double sgf, int ernst, int prijs)
+        public void SymptoomCategorieVullenMetDataUitDatabase()
         {
-            Symptoom symptoom = new Symptoom(naam, bgf, hgf, sgf, ernst, prijs);
-            this.symptomen.Add(symptoom);
+            //SymptoomCategorieBeheer SCB = new SymptoomCategorieBeheer();
         }
+
     }
 }

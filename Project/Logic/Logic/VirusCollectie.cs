@@ -13,7 +13,7 @@ namespace Logic
             virussen = new List<Virus>();
         }
 
-        public void VirusToevoegen(string naam, double bg, double hg, double sg)
+        public void VirusToevoegen(string naam, decimal bg, decimal hg, decimal sg)
         {
             Virus virus = new Virus(naam, bg, hg, sg);
             this.virussen.Add(virus);

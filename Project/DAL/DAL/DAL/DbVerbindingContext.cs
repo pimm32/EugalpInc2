@@ -4,10 +4,11 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    public class DbVerbindingContext: DbContext
+    public class DbVerbindingContext: DbContext, IDbVerbindingContext
     {
         public void VerbindingOpslaanInDatabase(Verbinding verbinding)
         {
@@ -20,7 +21,7 @@ namespace DAL
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@inkomendLand", MySqlDbType.String).Value = verbinding.aankomstLand.naam;
                     cmd.Parameters.Add("@uitgaandLand", MySqlDbType.String).Value = verbinding.vertrekLand.naam;
-                    cmd.Parameters.Add("@verkeer", MySqlDbType.Int32).Value = verbinding.verkeer;
+                    cmd.Parameters.Add("@verkeer", MySqlDbType.Int32).Value = verbinding.mensenVerkeer;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -43,7 +44,7 @@ namespace DAL
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@inkomendLand", MySqlDbType.String).Value = verbinding.aankomstLand.naam;
                     cmd.Parameters.Add("@uitgaandLand", MySqlDbType.String).Value = verbinding.vertrekLand.naam;
-                    cmd.Parameters.Add("@verkeer", MySqlDbType.Int32).Value = verbinding.verkeer;
+                    cmd.Parameters.Add("@verkeer", MySqlDbType.Int32).Value = verbinding.mensenVerkeer;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -75,7 +76,7 @@ namespace DAL
                 }
             }
 
-        public List<Verbinding> VraagInkomendeVerbindingenOpVanLand(Land land)
+        public IEnumerable<Verbinding> VraagInkomendeVerbindingenOpVanLand(Land land)
         {
             string query = "";
             List<Verbinding> resultaat = new List<Verbinding>();
@@ -111,7 +112,7 @@ namespace DAL
             return resultaat;
         }
 
-        public List<Verbinding> VraagUitgaandeVerbindingenOpVanLand(Land land)
+        public IEnumerable<Verbinding> VraagUitgaandeVerbindingenOpVanLand(Land land)
         {
             string query = "";
             List<Verbinding> resultaat = new List<Verbinding>();

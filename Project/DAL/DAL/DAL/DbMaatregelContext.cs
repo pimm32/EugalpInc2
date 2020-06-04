@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    public class DbMaatregelContext: DbContext
+    public class DbMaatregelContext: DbContext, IDbMaatregelContext
     {
         public void MaatregelOpslaanInDatabase(Maatregel maatregel)
         {
@@ -109,7 +110,7 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public List<Maatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase(Niveau niveau)
+        public IEnumerable<Maatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase(Niveau niveau)
         {
             string query = "";
             List<Maatregel> resultaat = new List<Maatregel>();

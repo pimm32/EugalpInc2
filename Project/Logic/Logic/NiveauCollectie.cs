@@ -13,7 +13,7 @@ namespace Logic
             niveaus = new List<Niveau>();
         }
 
-        public void NiveauToevoegen(string naam, double sbg, double shg, double ssg)
+        public void NiveauToevoegen(string naam, decimal sbg, decimal shg, decimal ssg)
         {
             niveaus.Add(new Niveau(naam, sbg, shg, ssg));
         }

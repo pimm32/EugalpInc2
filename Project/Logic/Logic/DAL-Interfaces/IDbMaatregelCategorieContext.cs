@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbMaatregelCategorieContext
+    public interface IDbMaatregelCategorieContext
     {
+        public IEnumerable<MaatregelCategorie> VraagAlleMaatregelCategorienOpUitDatabase();
     }
 }

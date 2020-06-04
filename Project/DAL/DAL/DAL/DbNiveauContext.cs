@@ -4,10 +4,11 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    public class DbNiveauContext: DbContext
+    public class DbNiveauContext: DbContext, IDbNiveauContext
     {
         public Niveau VraagNiveauOpUitDatabase(string niveau)
         {
@@ -17,7 +18,7 @@ namespace DAL
             {
                 try
                 {
-                    MySqlCommand cmd = new MySqlCommand();
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau;
                     MySqlDataReader dataReader = cmd.ExecuteReader();

@@ -4,11 +4,40 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Logic.DAL_Interfaces;
+using Logic.Logic_Interfaces;
 
 namespace DAL
 {
-    public class DbSymptoomContext: DbContext
+    public class DbSymptoomContext: DbContext, IDbSymptoomContext
     {
+        public Symptoom SymptoomSelecteren(string naam)
+        {
+            string query = "_AlleSymptomenOpvragen";
+            Symptoom resultaat;
+            if (this.OpenConnection())
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        resultaat = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
+                        return resultaat;
+                        
+                    }
+                    dataReader.Close();
+                }
+                catch
+                {
+                    resultaat = null;
+                }
+
+            }
+            return null;
+        }
         public void SymptoomOpslaanInDatabase(Symptoom symptoom)
         {
             string query = "_SymptoomOpslaan";
@@ -106,13 +135,64 @@ namespace DAL
                 this.CloseConnection();
             }
         }
+        public IEnumerable<Symptoom> VraagAlleSymptomenOp()
+        {
+            string query = "_AlleSymptomenOpvragen";
+            List<Symptoom> resultaat = new List<Symptoom>();
+            if (this.OpenConnection())
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
+                        resultaat.Add(symptoom);
+                    }
+                    dataReader.Close();
+                }
+                catch
+                {
+                    resultaat = null;
+                }
+                
+            }
+            return resultaat;
+        }
+
+        public IEnumerable<Symptoom> VraagAlleSymptomenOpVanNiveau(Niveau niveau)
+        {
+            string query = "_AlleSymptomenOpvragenVanNiveau";
+            List<Symptoom> resultaat = new List<Symptoom>();
+            if (this.OpenConnection())
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau.naam;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
+                        resultaat.Add(symptoom);
+                    }
+                    dataReader.Close();
+                }
+                catch
+                {
+                    resultaat = null;
+                }
+
+            }
+            return resultaat;
+        }
 
         //naar symptoomcollectie DB context?
-        public List<Symptoom> VraagAlleSymptomenOpVanCategorieVanNiveau(Niveau niveau, SymptoomCategorie categorie)
+        public IEnumerable<Symptoom> VraagAlleSymptomenOpVanCategorieVanNiveau(Niveau niveau, SymptoomCategorie categorie)
         {
-            // beetje logica? foreach (categorie cat in DbSymptoomCategorie.VraagAlleCategorienOp)
-            // foreach(Symptoom sym in cat.VraagAlleSymptomenVanCategorieOpVanNiveau(niveau){
-            // resultaat.add(sym)))
             
             
             string query = "_AlleSymptomenOpvragenVanCategorieVanNiveau";
@@ -143,7 +223,7 @@ namespace DAL
             return resultaat;
         }
 
-        public List<Symptoom> VraagAlleSymptomenOpVanVirus(Virus virus)
+        public IEnumerable<Symptoom> VraagAlleSymptomenOpVanVirus(Virus virus)
         {
             string query = "_AlleSymptomenOpvragenVanVirus";
             List<Symptoom> resultaat = new List<Symptoom>();

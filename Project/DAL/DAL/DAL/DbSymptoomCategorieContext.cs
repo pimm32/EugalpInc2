@@ -4,37 +4,55 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    public class DbSymptoomCategorieContext:DbContext
+    public class DbSymptoomCategorieContext:DbContext, IDbSymptoomCategorieContext
     {
-        public List<SymptoomCategorie> VraagAlleSymptoomCategorienOpUitDatabase()
+        public IEnumerable<SymptoomCategorie> VraagAlleSymptoomCategorienOpUitDatabase()
         {
             List<SymptoomCategorie> resultaat = new List<SymptoomCategorie>();
-            string query = "_AlleSymptoomCategorienOpvragen";
-            if (this.OpenConnection())
+            using (connection)
             {
-                try
+                connection.Open();
+                string query = "_AlleSymptoomCategorienOpvragen";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
                 {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-                    while (dataReader.Read())
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        SymptoomCategorie symptoomCategorie = new SymptoomCategorie();
-                        symptoomCategorie.naam = dataReader.GetString(0);
-                        resultaat.Add(symptoomCategorie);
+                        while (reader.Read())
+                        {
+                            yield return new SymptoomCategorie(reader.GetString(0));
+                        }
                     }
                 }
-                catch (Exception exception)
-                {
-                    resultaat = null;
-                    throw new Exception(exception.ToString());
-                }
-                this.CloseConnection();
             }
-            return resultaat;
+            
+            
+            //if (this.OpenConnection())
+            //{
+            //    try
+            //    {
+            //        MySqlCommand cmd = new MySqlCommand(query, connection);
+            //        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //        MySqlDataReader dataReader = cmd.ExecuteReader();
+            //        while (dataReader.Read())
+            //        {
+            //            yield return 
+            //            //SymptoomCategorie symptoomCategorie = new SymptoomCategorie(dataReader.GetString(0));
+            //            //resultaat.Add(symptoomCategorie);
+            //        }
+            //    }
+            //    catch (Exception exception)
+            //    {
+            //        resultaat = null;
+            //        throw new Exception(exception.ToString());
+            //    }
+            //    this.CloseConnection();
+            //}
+            //return resultaat;
         }
     }
 }

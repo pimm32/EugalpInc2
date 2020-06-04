@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbLandContext
+    public interface IDbLandContext
     {
+        public IEnumerable<Land> VraagAlleLandenOpUitDatabase();
     }
 }

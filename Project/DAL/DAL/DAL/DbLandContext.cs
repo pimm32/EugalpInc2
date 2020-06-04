@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    public class DbLandContext: DbContext
+    public class DbLandContext: DbContext, IDbLandContext
     {
         public IEnumerable<Land> VraagAlleLandenOpUitDatabase()
         {

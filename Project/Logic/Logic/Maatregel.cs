@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.DAL_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -38,6 +39,21 @@ namespace Logic
         public void MaatregelDeactiveren()
         {
             this.actief = false;
+        }
+        
+        public void MaatregelInDatabaseOpslaan()
+        {
+
+        }
+
+        public void MaatregelInDatabaseAanpassen()
+        {
+
+        }
+
+        public void MaatregelInDatabaseVerwijderen()
+        {
+
         }
     }
 }

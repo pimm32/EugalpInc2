@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbVirusContext
+    public interface IDbVirusContext
     {
+        public void VirusOpslaanInDatabase(Virus virus);
+        public void VirusAanpassenInDatabase(Virus virus);
+        public Virus VraagVirusOpInDatabase(string naam);
     }
 }

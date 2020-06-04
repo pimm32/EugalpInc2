@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbNiveauContext
+    public interface IDbNiveauContext
     {
+        public Niveau VraagNiveauOpUitDatabase(string niveau);
     }
 }

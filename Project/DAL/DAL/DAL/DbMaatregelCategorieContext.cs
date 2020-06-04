@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    class DbMaatregelCategorieContext: DbContext
+    public class DbMaatregelCategorieContext: DbContext, IDbMaatregelCategorieContext
     {
         public IEnumerable<MaatregelCategorie> VraagAlleMaatregelCategorienOpUitDatabase()
         {

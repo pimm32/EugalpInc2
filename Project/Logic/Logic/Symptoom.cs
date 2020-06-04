@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
+﻿using Logic.Logic_Interfaces;
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Logic
 {
-    public class Symptoom
+    public class Symptoom: ISymptoom
     {
         public string naam { get; set; }
         public decimal besmettingsgraadFactor { get; set; }

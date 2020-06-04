@@ -4,7 +4,14 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbVerbindingContext
+    public interface IDbVerbindingContext
     {
+        public void VerbindingOpslaanInDatabase(Verbinding verbinding);
+        public void VerbindingAanpassenInDatabase(Verbinding verbinding);
+        public void VerbindingVerwijderenUitDatabase(Verbinding verbinding);
+        public IEnumerable<Verbinding> VraagInkomendeVerbindingenOpVanLand(Land land);
+        public IEnumerable<Verbinding> VraagUitgaandeVerbindingenOpVanLand(Land land);
+
+
     }
 }

@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbContext
+    public interface IDbContext
     {
+        public bool OpenConnection();
+        public bool CloseConnection();
+
     }
 }

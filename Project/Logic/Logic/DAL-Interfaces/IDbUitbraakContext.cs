@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbUitbraakContext
+    public interface IDbUitbraakContext
     {
+        public void UitbraakOpslaanInDatabase(Uitbraak uitbraak, Virus virus);
+        public void UitbraakAanpassenInDatabase(Uitbraak uitbraak, Virus virus);
+        public IEnumerable<Uitbraak> VraagAlleUitbrakenOpVanVirusUitDatabase(Virus virus);
+
     }
 }

@@ -5,10 +5,11 @@ using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Logic.DAL_Interfaces;
 
 namespace DAL
 {
-    public class DbVirusContext : DbContext
+    public class DbVirusContext : DbContext, IDbVirusContext
     {
         public void VirusOpslaanInDatabase(Virus virus)
         {

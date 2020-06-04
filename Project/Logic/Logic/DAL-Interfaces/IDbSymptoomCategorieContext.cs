@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Logic.DAL_Interfaces
 {
-    interface IDbSymptoomCategorieContext
+    public interface IDbSymptoomCategorieContext
     {
+        public IEnumerable<SymptoomCategorie> VraagAlleSymptoomCategorienOpUitDatabase();
     }
 }
