@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ namespace DAL
 {
     class DbMaatregelCategorieContext: DbContext
     {
-        public IEnumerable<DalMaatregelCategorie> VraagAlleMaatregelCategorienOpUitDatabase()
+        public IEnumerable<MaatregelCategorie> VraagAlleMaatregelCategorienOpUitDatabase()
         {
-            List<DalMaatregelCategorie> resultaat = new List<DalMaatregelCategorie>();
+            List<MaatregelCategorie> resultaat = new List<MaatregelCategorie>();
             string query = "";
             if (this.OpenConnection())
             {
@@ -22,7 +23,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        DalMaatregelCategorie maatregelCategorie = new DalMaatregelCategorie();
+                        MaatregelCategorie maatregelCategorie = new MaatregelCategorie();
                         maatregelCategorie.naam = dataReader.GetString(0);
                         resultaat.Add(maatregelCategorie);
                     }

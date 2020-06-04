@@ -6,8 +6,8 @@ namespace Logic
 {
     public class Verbinding
     {
-        Land vertrekLand;
-        Land aankomstLand;
+        public Land vertrekLand;
+        public Land aankomstLand;
         public int mensenVerkeer { get; set; }
 
         public Verbinding(Land vertrek, Land aankomst, int verkeer)
@@ -15,6 +15,10 @@ namespace Logic
             this.vertrekLand = vertrek;
             this.aankomstLand = aankomst;
             this.mensenVerkeer = verkeer;
+        }
+        public Verbinding()
+        {
+
         }
 
         public void VerkeerAanpassen(int nieuwVerkeer)

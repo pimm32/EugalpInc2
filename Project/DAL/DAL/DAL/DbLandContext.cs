@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ namespace DAL
 {
     public class DbLandContext: DbContext
     {
-        public IEnumerable<DalLand> VraagAlleLandenOpUitDatabase()
+        public IEnumerable<Land> VraagAlleLandenOpUitDatabase()
         {
             string query = "";
-            List<DalLand> resultaat = new List<DalLand>();
+            List<Land> resultaat = new List<Land>();
             if (this.OpenConnection())
             {
                 
@@ -24,11 +25,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        DalLand land = new DalLand();
-                        land.naam = dataReader.GetString(0);
-                        land.inwonersaantal = dataReader.GetInt32(1);
-                        land.straatbezetting = dataReader.GetDecimal(2);
-                        land.doktersbezoeken = dataReader.GetDecimal(3);
+                        Land land = new Land(dataReader.GetString(0), dataReader.GetInt32(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3));
                         resultaat.Add(land);
                     }
 

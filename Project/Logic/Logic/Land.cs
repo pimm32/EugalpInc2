@@ -6,19 +6,23 @@ namespace Logic
 {
     public class Land
     {
-        public string naam { get; private set; }
-        public int inwonersaantal { get; private set; }
-        public double straatbezetting { get; private set; }
-        public double doktersbezoeken { get; private set; }
+        public string naam { get;  set; }
+        public int inwonersaantal { get;  set; }
+        public decimal straatbezetting { get;  set; }
+        public decimal doktersbezoeken { get;  set; }
         public List<Maatregel> maatregels;
 
-        public Land(string naam, int inwoners, double sb, double db)
+        public Land(string naam, int inwoners, decimal sb, decimal db)
         {
             this.naam = naam;
             this.inwonersaantal = inwoners;
             this.straatbezetting = sb;
             this.doktersbezoeken = db;
             maatregels = new List<Maatregel>();
+        }
+        public Land()
+        {
+
         }
 
         public void MaatregelToevoegen(Maatregel maatregel)

@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,10 @@ namespace DAL
 {
     public class DbNiveauContext: DbContext
     {
-        public DalNiveau VraagNiveauOpUitDatabase(string niveau)
+        public Niveau VraagNiveauOpUitDatabase(string niveau)
         {
             string query = "";
-            DalNiveau resultaat = new DalNiveau();
+            Niveau resultaat = new Niveau();
             if (this.OpenConnection())
             {
                 try
@@ -22,10 +23,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        resultaat.naam = dataReader.GetString(0);
-                        resultaat.standaardBesmettingsgraad = dataReader.GetDecimal(1);
-                        resultaat.standaardHerkenbaarheidsgraad = dataReader.GetDecimal(2);
-                        resultaat.standaardSterftegraad = dataReader.GetDecimal(3);
+                        resultaat = new Niveau(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3));
                     }
                     dataReader.Close();
                 }

@@ -18,6 +18,10 @@ namespace Logic
             this.aantalGeregistreerdeBesmettingen = 0;
             this.aantalSterfgevalen = 0;
         }
+        public Uitbraak()
+        {
+
+        }
 
         public void BerekenNieuweBesmettingen(double besmettingsgraad)
         {

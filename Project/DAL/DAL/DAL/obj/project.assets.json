@@ -1689,6 +1689,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "Logic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Logic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Logic.dll": {}
+        }
       }
     }
   },
@@ -5872,10 +5882,16 @@
         "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "Logic/1.0.0": {
+      "type": "project",
+      "path": "../../../Logic/Logic/Logic.csproj",
+      "msbuildProject": "../../../Logic/Logic/Logic.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Logic >= 1.0.0",
       "MySql.Data >= 8.0.20"
     ]
   },
@@ -5908,7 +5924,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\pim-a\\source\\EugalpInc\\Project\\Logic\\Logic\\Logic.csproj": {
+              "projectPath": "C:\\Users\\pim-a\\source\\EugalpInc\\Project\\Logic\\Logic\\Logic.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

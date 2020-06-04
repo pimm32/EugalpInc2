@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace DAL
 {
     public class DbSymptoomContext: DbContext
     {
-        public void SymptoomOpslaanInDatabase(DalSymptoom symptoom)
+        public void SymptoomOpslaanInDatabase(Symptoom symptoom)
         {
             string query = "_SymptoomOpslaan";
             if (this.OpenConnection())
@@ -36,7 +37,7 @@ namespace DAL
             }
         }
 
-        public void SymptoomAanpassenInDatabase(DalSymptoom symptoom)
+        public void SymptoomAanpassenInDatabase(Symptoom symptoom)
         {
             string query = "_SymptoomAanpassen";
             if (this.OpenConnection())
@@ -63,9 +64,9 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public void SymptoomVerwijderenUitDatabase(DalSymptoom symptoom)
+        public void SymptoomVerwijderenUitDatabase(Symptoom symptoom)
         {
-            string query = "_";
+            string query = "_SymptoomVerwijderen";
             if (this.OpenConnection())
             {
                 try
@@ -84,7 +85,7 @@ namespace DAL
             }
         }
 
-        public void SymptoomAanVirusToevoegenInDatabase(DalSymptoom symptoom, DalVirus virus)
+        public void SymptoomAanVirusToevoegenInDatabase(Symptoom symptoom, Virus virus)
         {
             string query = "";
             if (this.OpenConnection())
@@ -107,7 +108,7 @@ namespace DAL
         }
 
         //naar symptoomcollectie DB context?
-        public List<DalSymptoom> VraagAlleSymptomenOpVanCategorieVanNiveau(DalNiveau niveau, DalSymptoomCategorie categorie)
+        public List<Symptoom> VraagAlleSymptomenOpVanCategorieVanNiveau(Niveau niveau, SymptoomCategorie categorie)
         {
             // beetje logica? foreach (categorie cat in DbSymptoomCategorie.VraagAlleCategorienOp)
             // foreach(Symptoom sym in cat.VraagAlleSymptomenVanCategorieOpVanNiveau(niveau){
@@ -115,7 +116,7 @@ namespace DAL
             
             
             string query = "_AlleSymptomenOpvragenVanCategorieVanNiveau";
-            List<DalSymptoom> resultaat = new List<DalSymptoom>();
+            List<Symptoom> resultaat = new List<Symptoom>();
             if (this.OpenConnection())
             {
                 try
@@ -127,13 +128,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        DalSymptoom symptoom = new DalSymptoom();
-                        symptoom.naam = dataReader.GetString(0);
-                        symptoom.besmettingsgraadFactor = dataReader.GetDecimal(1);
-                        symptoom.herkenbaarheidsgraadFactor = dataReader.GetDecimal(2);
-                        symptoom.sterftegraadFactor = dataReader.GetDecimal(3);
-                        symptoom.ernst = dataReader.GetInt32(4);
-                        symptoom.prijs = dataReader.GetInt32(5);
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();
@@ -148,10 +143,10 @@ namespace DAL
             return resultaat;
         }
 
-        public List<DalSymptoom> VraagAlleSymptomenOpVanVirus(DalVirus virus)
+        public List<Symptoom> VraagAlleSymptomenOpVanVirus(Virus virus)
         {
             string query = "_AlleSymptomenOpvragenVanVirus";
-            List<DalSymptoom> resultaat = new List<DalSymptoom>();
+            List<Symptoom> resultaat = new List<Symptoom>();
             if (this.OpenConnection())
             {
                 try
@@ -162,13 +157,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        DalSymptoom symptoom = new DalSymptoom();
-                        symptoom.naam = dataReader.GetString(0);
-                        symptoom.besmettingsgraadFactor = dataReader.GetDecimal(1);
-                        symptoom.herkenbaarheidsgraadFactor = dataReader.GetDecimal(2);
-                        symptoom.sterftegraadFactor = dataReader.GetDecimal(3);
-                        symptoom.ernst = dataReader.GetInt32(4);
-                        symptoom.prijs = dataReader.GetInt32(5);
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();

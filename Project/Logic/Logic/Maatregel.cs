@@ -7,15 +7,18 @@ namespace Logic
     public class Maatregel
     {
         public string naam { get; set; }
-        public double straatbezettingFactor { get; set; }
-        public double doktersbezoekenFactor { get; set; }
+        public decimal straatbezettingFactor { get; set; }
+        public decimal doktersbezoekenFactor { get; set; }
         public int ernst { get; set; }
-        public double besmettingenGrens { get; set; }
-        public double geregistreerdeBesmettingenGrens { get; set; }
-        public double sterfteGrens { get; set; }
+        public decimal besmettingenGrens { get; set; }
+        public decimal geregistreerdeBesmettingenGrens { get; set; }
+        public decimal sterfteGrens { get; set; }
         public bool actief { get; set; }
 
-        public Maatregel(string naam, double sbf, double dbf, int ernst, double bg, double gbg, double sg)
+        public MaatregelCategorie categorie { get; set; }
+        public Niveau niveau { get; set; }
+
+        public Maatregel(string naam, decimal sbf, decimal dbf, int ernst, decimal bg, decimal gbg, decimal sg)
         {
             this.naam = naam;
             this.straatbezettingFactor = sbf;

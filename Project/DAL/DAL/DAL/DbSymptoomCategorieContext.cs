@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace DAL
 {
     public class DbSymptoomCategorieContext:DbContext
     {
-        public List<DalSymptoomCategorie> VraagAlleSymptoomCategorienOpUitDatabase()
+        public List<SymptoomCategorie> VraagAlleSymptoomCategorienOpUitDatabase()
         {
-            List<DalSymptoomCategorie> resultaat = new List<DalSymptoomCategorie>();
+            List<SymptoomCategorie> resultaat = new List<SymptoomCategorie>();
             string query = "_AlleSymptoomCategorienOpvragen";
             if (this.OpenConnection())
             {
@@ -21,7 +22,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        DalSymptoomCategorie symptoomCategorie = new DalSymptoomCategorie();
+                        SymptoomCategorie symptoomCategorie = new SymptoomCategorie();
                         symptoomCategorie.naam = dataReader.GetString(0);
                         resultaat.Add(symptoomCategorie);
                     }

@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using System;
@@ -9,7 +10,7 @@ namespace DAL
 {
     public class DbVirusContext : DbContext
     {
-        public void VirusOpslaanInDatabase(DalVirus virus)
+        public void VirusOpslaanInDatabase(Virus virus)
         {
             string query = "_VirusOpslaan";
             if (this.OpenConnection())
@@ -34,7 +35,7 @@ namespace DAL
             }
         }
 
-        public void VirusAanpassenInDatabase(DalVirus virus)
+        public void VirusAanpassenInDatabase(Virus virus)
         {
             string query = "_VirusAanpassen";
             if (this.OpenConnection())
@@ -58,10 +59,10 @@ namespace DAL
             }
         }
 
-        public DalVirus VraagVirusOpInDatabase(string naam)
+        public Virus VraagVirusOpInDatabase(string naam)
         {
             string query = "_VirusOpvragenNaarNaam";
-            DalVirus resultaat = new DalVirus();
+            Virus resultaat = null;
             if (this.OpenConnection())
             {
                 try
@@ -72,11 +73,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        resultaat.naam = dataReader.GetString(0);
-                        resultaat.besmettingsgraad = dataReader.GetDecimal(1);
-                        resultaat.herkenbaarheidsgraad = dataReader.GetDecimal(2);
-                        resultaat.sterftegraad = dataReader.GetDecimal(3);
-                        resultaat.aantalDagenSindsEersteUitbraak = dataReader.GetInt32(4);
+                        resultaat = new Virus(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4));
                     }
                     dataReader.Close();
                 }

@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace DAL
 {
     public class DbVerbindingContext: DbContext
     {
-        public void VerbindingOpslaanInDatabase(DalVerbinding verbinding)
+        public void VerbindingOpslaanInDatabase(Verbinding verbinding)
         {
             string query = "";
             if (this.OpenConnection())
@@ -31,7 +32,7 @@ namespace DAL
             }
         }
 
-        public void VerbindingAanpassenInDatabase(DalVerbinding verbinding)
+        public void VerbindingAanpassenInDatabase(Verbinding verbinding)
         {
             string query = "";
             if (this.OpenConnection())
@@ -53,7 +54,7 @@ namespace DAL
             }
         }
 
-        public void VerbindingVerwijderenUitDatabase(DalVerbinding verbinding)
+        public void VerbindingVerwijderenUitDatabase(Verbinding verbinding)
         {
                 string query = "";
                 if (this.OpenConnection())
@@ -74,10 +75,10 @@ namespace DAL
                 }
             }
 
-        public List<DalVerbinding> VraagInkomendeVerbindingenOpVanLand(DalLand land)
+        public List<Verbinding> VraagInkomendeVerbindingenOpVanLand(Land land)
         {
             string query = "";
-            List<DalVerbinding> resultaat = new List<DalVerbinding>();
+            List<Verbinding> resultaat = new List<Verbinding>();
             if (this.OpenConnection())
             {
                 try
@@ -90,13 +91,13 @@ namespace DAL
                     landIn.naam = land.naam;
                     while (dataReader.Read())
                     {
-                        DalVerbinding verbinding = new DalVerbinding();
-                        DalLand landUit = new DalLand();
-                        landUit.naam = dataReader.GetString(0);
-                        verbinding.aankomstLand = landIn;
-                        verbinding.vertrekLand = landUit;
-                        verbinding.verkeer = dataReader.GetInt32(1);
-                        resultaat.Add(verbinding);
+                        //Verbinding verbinding = new Verbinding();
+                        //Land landUit = new Land();
+                        //landUit.naam = dataReader.GetString(0);
+                        //verbinding.aankomstLand = landIn;
+                        //verbinding.vertrekLand = landUit;
+                        //verbinding.verkeer = dataReader.GetInt32(1);
+                        //resultaat.Add(verbinding);
                     }
                     dataReader.Close();
                 }
@@ -110,10 +111,10 @@ namespace DAL
             return resultaat;
         }
 
-        public List<DalVerbinding> VraagUitgaandeVerbindingenOpVanLand(DalLand land)
+        public List<Verbinding> VraagUitgaandeVerbindingenOpVanLand(Land land)
         {
             string query = "";
-            List<DalVerbinding> resultaat = new List<DalVerbinding>();
+            List<Verbinding> resultaat = new List<Verbinding>();
             if (this.OpenConnection())
             {
                 try
@@ -122,16 +123,16 @@ namespace DAL
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@uitgaandLand", MySqlDbType.String).Value = land.naam;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
-                    DalLand landIn = new DalLand();
+                    Land landIn = new Land();
                     landIn.naam = land.naam;
                     while (dataReader.Read())
                     {
-                        DalVerbinding verbinding = new DalVerbinding();
-                        DalLand landUit = new DalLand();
+                        Verbinding verbinding = new Verbinding();
+                        Land landUit = new Land();
                         landUit.naam = dataReader.GetString(0);
                         verbinding.aankomstLand = landIn;
                         verbinding.vertrekLand = landUit;
-                        verbinding.verkeer = dataReader.GetInt32(1);
+                        verbinding.mensenVerkeer = dataReader.GetInt32(1);
                         resultaat.Add(verbinding);
                     }
                     dataReader.Close();

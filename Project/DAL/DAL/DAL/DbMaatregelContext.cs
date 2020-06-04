@@ -1,4 +1,5 @@
 ﻿using DAL.DalModels;
+using Logic;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace DAL
 {
     public class DbMaatregelContext: DbContext
     {
-        public void MaatregelOpslaanInDatabase(DalMaatregel maatregel)
+        public void MaatregelOpslaanInDatabase(Maatregel maatregel)
         {
             string query = "MaatregelToevoegen";
             if (this.OpenConnection())
@@ -38,7 +39,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelAanpassenInDatabase(DalMaatregel maatregel)
+        public void MaatregelAanpassenInDatabase(Maatregel maatregel)
         {
             string query = "";
             if (this.OpenConnection())
@@ -66,7 +67,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelVerwijderenUitDatabase(DalMaatregel maatregel)
+        public void MaatregelVerwijderenUitDatabase(Maatregel maatregel)
         {
             string query = "";
             if (this.OpenConnection())
@@ -87,7 +88,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelActiefInLandIntDatabaseOpslaan(DalMaatregel maatregel, DalLand land)
+        public void MaatregelActiefInLandIntDatabaseOpslaan(Maatregel maatregel, Land land)
         {
 
             string query = "";
@@ -108,10 +109,10 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public List<DalMaatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase(DalNiveau niveau)
+        public List<Maatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase(Niveau niveau)
         {
             string query = "";
-            List<DalMaatregel> resultaat = new List<DalMaatregel>();
+            List<Maatregel> resultaat = new List<Maatregel>();
             if (this.OpenConnection())
             {
                 try
@@ -122,14 +123,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        DalMaatregel maatregel = new DalMaatregel();
-                        maatregel.naam = dataReader.GetString(0);
-                        maatregel.straatbezettingFactor = dataReader.GetDecimal(1);
-                        maatregel.doktersbezoekenFactor = dataReader.GetDecimal(2);
-                        maatregel.ernst = dataReader.GetInt32(3);
-                        maatregel.besmettingenGrens = dataReader.GetDecimal(4);
-                        maatregel.geregistreerdeBesmettingenGrens = dataReader.GetDecimal(5);
-                        maatregel.sterfteGrens = dataReader.GetDecimal(6);
+                        Maatregel maatregel = new Maatregel(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetInt32(3), dataReader.GetDecimal(4), dataReader.GetDecimal(5), dataReader.GetDecimal(6));
                         resultaat.Add(maatregel);
                     }
                     dataReader.Close();
