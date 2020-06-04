@@ -11,7 +11,7 @@ namespace DAL
         public List<DalSymptoomCategorie> VraagAlleSymptoomCategorienOpUitDatabase()
         {
             List<DalSymptoomCategorie> resultaat = new List<DalSymptoomCategorie>();
-            string query = "";
+            string query = "_AlleSymptoomCategorienOpvragen";
             if (this.OpenConnection())
             {
                 try

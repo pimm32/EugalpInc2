@@ -10,7 +10,7 @@ namespace DAL
     {
         public void SymptoomOpslaanInDatabase(DalSymptoom symptoom)
         {
-            string query = "";
+            string query = "_SymptoomOpslaan";
             if (this.OpenConnection())
             {
                 try
@@ -38,7 +38,7 @@ namespace DAL
 
         public void SymptoomAanpassenInDatabase(DalSymptoom symptoom)
         {
-            string query = "";
+            string query = "_SymptoomAanpassen";
             if (this.OpenConnection())
             {
                 try
@@ -65,7 +65,7 @@ namespace DAL
         }
         public void SymptoomVerwijderenUitDatabase(DalSymptoom symptoom)
         {
-            string query = "";
+            string query = "_";
             if (this.OpenConnection())
             {
                 try
@@ -105,9 +105,16 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public List<DalSymptoom> VraagAlleSymptomenOpVanNiveau(DalNiveau niveau)
+
+        //naar symptoomcollectie DB context?
+        public List<DalSymptoom> VraagAlleSymptomenOpVanCategorieVanNiveau(DalNiveau niveau, DalSymptoomCategorie categorie)
         {
-            string query = "";
+            // beetje logica? foreach (categorie cat in DbSymptoomCategorie.VraagAlleCategorienOp)
+            // foreach(Symptoom sym in cat.VraagAlleSymptomenVanCategorieOpVanNiveau(niveau){
+            // resultaat.add(sym)))
+            
+            
+            string query = "_AlleSymptomenOpvragenVanCategorieVanNiveau";
             List<DalSymptoom> resultaat = new List<DalSymptoom>();
             if (this.OpenConnection())
             {
@@ -116,6 +123,7 @@ namespace DAL
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau.naam;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = categorie.naam;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
@@ -142,7 +150,7 @@ namespace DAL
 
         public List<DalSymptoom> VraagAlleSymptomenOpVanVirus(DalVirus virus)
         {
-            string query = "";
+            string query = "_AlleSymptomenOpvragenVanVirus";
             List<DalSymptoom> resultaat = new List<DalSymptoom>();
             if (this.OpenConnection())
             {
