@@ -17,6 +17,8 @@ namespace DAL
             //DbVirusContext viruscontext = new DbVirusContext();
             //viruscontext.VirusOpslaanInDatabase(daf);
 
+            //keuze SP beargumenteren in documentatie
+
         }
     }
 }
