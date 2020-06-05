@@ -14,7 +14,7 @@ namespace DAL
         public Symptoom SymptoomSelecteren(string naam, string niveau)
         {
             string query = "_SymptoomSelecteren";
-            Symptoom resultaat;
+            Symptoom resultaat = new Symptoom();
 
             if (this.OpenConnection())
             {
@@ -28,9 +28,15 @@ namespace DAL
                     {
                         while (dataReader.Read())
                         {
-                            
-                            resultaat = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
-                            return resultaat;
+                            resultaat.naam = dataReader.GetString(0);
+                            resultaat.besmettingsgraadFactor = dataReader.GetDecimal(1);
+                            resultaat.herkenbaarheidsgraadFactor = dataReader.GetDecimal(2);
+                            resultaat.sterftegraadFactor = dataReader.GetDecimal(3);
+                            resultaat.ernst = dataReader.GetInt32(4);
+                            resultaat.prijs = dataReader.GetInt32(5);
+                            resultaat.niveau = dataReader.GetString(6);
+                            resultaat.categorie = dataReader.GetString(7);
+                            break;
 
                         }
                         dataReader.Close();
@@ -39,13 +45,10 @@ namespace DAL
                 catch
                 {
                 }
+                this.CloseConnection();
 
             }
-            else
-            {
-
-            }
-            return null;
+            return resultaat;
         }
         public void SymptoomOpslaanInDatabase(Symptoom symptoom)
         {
@@ -166,6 +169,7 @@ namespace DAL
                 {
                     resultaat = null;
                 }
+                this.CloseConnection();
                 
             }
             return resultaat;
@@ -194,7 +198,7 @@ namespace DAL
                 {
                     resultaat = null;
                 }
-
+                this.CloseConnection();
             }
             return resultaat;
         }

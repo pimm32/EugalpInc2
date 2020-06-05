@@ -6,11 +6,11 @@ namespace Logic
 {
     public class Virus
     {
-        public string naam { get; set; }
-        public decimal besmettingsgraad { get; set; }
-        public decimal herkenbaarheidsgraad { get; set; }
-        public decimal sterftegraad { get; set; }
-        public int aantalDagenSindsEersteUitbraak { get; set; }
+        public string naam { get; private set; }
+        public decimal besmettingsgraad { get; private set; }
+        public decimal herkenbaarheidsgraad { get; private set; }
+        public decimal sterftegraad { get; private set; }
+        public int aantalDagenSindsEersteUitbraak { get; private set; }
         public List<Uitbraak> uitbraken;
 
         static Virus()
