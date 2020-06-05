@@ -15,10 +15,10 @@ namespace Logic
             _context = context;
         }
 
-        public Symptoom OpvragenNaarNaam(string naam)
+        public Symptoom OpvragenNaarNaam(string naam, string niveau)
         {
             
-            return _context.SymptoomSelecteren(naam);
+            return _context.SymptoomSelecteren(naam, niveau);
         }
 
         public void SymptoomToevoegen(Symptoom symptoom)

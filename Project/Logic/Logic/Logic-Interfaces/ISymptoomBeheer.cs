@@ -11,7 +11,7 @@ namespace Logic.Logic_Interfaces
         public void SymptoomVerwijderen(Symptoom symptoom);
         public IEnumerable<Symptoom> AlleSymptomen();
         public IEnumerable<Symptoom> AlleSymptomenVanNiveau(Niveau niveau);
-        public Symptoom OpvragenNaarNaam(string naam);
+        public Symptoom OpvragenNaarNaam(string naam, string niveau);
 
     }
 }

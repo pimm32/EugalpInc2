@@ -8,7 +8,7 @@
     @foreach (Eugalp.Models.ViewModels.SymptoomViewModel item in Model)
     {
 <dl class="row">
-    <dt class="col-sm-3">
+    <dt class="col-sm-2">
         @Html.DisplayFor(x => item.naam)
     </dt>
     <dt class="col-sm-1">
@@ -26,14 +26,14 @@
     <dt class="col-sm-1">
         @Html.DisplayFor(x => item.prijs)
     </dt>
-    <dt class="col-sm-1">
+    <dt class="col-sm-3">
         @Html.DisplayFor(x => item.categorie)
     </dt>
     <dt class="col-sm-1">
         @Html.DisplayFor(x => item.niveau)
     </dt>
     <dt class="col-sm-1">
-       <a asp-controller="Symptoom" asp-action="Inspecteer" asp-route-naam="@item.naam">Inspecteer</a>
+       <a asp-controller="Symptoom" asp-action="Inspecteer" asp-route-naam="@item.naam" asp-route-niveau="@item.niveau">Inspecteer</a>
        @**/Html.ActionLink("inspecteer", "Inspecteer", "Symptoom", item.naam, null)*@
     </dt>
 </dl>

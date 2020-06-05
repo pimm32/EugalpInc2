@@ -11,10 +11,11 @@ namespace DAL
 {
     public class DbSymptoomContext: DbContext, IDbSymptoomContext
     {
-        public Symptoom SymptoomSelecteren(string naam)
+        public Symptoom SymptoomSelecteren(string naam, string niveau)
         {
             string query = "_SymptoomSelecteren";
             Symptoom resultaat;
+
             if (this.OpenConnection())
             {
                 try
@@ -22,10 +23,12 @@ namespace DAL
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@naam", MySqlDbType.String).Value = naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau;
                     using (MySqlDataReader dataReader = cmd.ExecuteReader())
                     {
                         while (dataReader.Read())
                         {
+                            
                             resultaat = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                             return resultaat;
 
@@ -35,7 +38,6 @@ namespace DAL
                 }
                 catch
                 {
-                    resultaat = null;
                 }
 
             }

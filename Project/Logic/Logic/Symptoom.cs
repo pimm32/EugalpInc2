@@ -31,6 +31,10 @@ namespace Logic
             this.niveau = niveau;
             this.categorie = categorie;
         }
+        public Symptoom()
+        {
+
+        }
 
         public void SymptoomActiveren()
         {

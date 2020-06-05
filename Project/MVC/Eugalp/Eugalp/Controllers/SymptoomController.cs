@@ -26,11 +26,11 @@ namespace Eugalp.Controllers
             return View();
         }
 
-        public IActionResult Inspecteer(string naam)
+        public IActionResult Inspecteer(string naam, string niveau)
         {
             SymptoomViewModel viewmodel = new SymptoomViewModel();
             
-            Symptoom symptoom = _SymptoomBeheer.OpvragenNaarNaam(naam);
+            Symptoom symptoom = _SymptoomBeheer.OpvragenNaarNaam(naam, niveau);
             viewmodel.naam = symptoom.naam;
             viewmodel.besmettingsgraadFactor = symptoom.besmettingsgraadFactor;
             viewmodel.herkenbaarheidsgraadFactor = symptoom.herkenbaarheidsgraadFactor;
@@ -67,9 +67,9 @@ namespace Eugalp.Controllers
             return RedirectToAction("Inspecteer", "Symptoom", naam);
         }
         [HttpDelete]
-        public IActionResult SymptoomVerwijderen(string naam)
+        public IActionResult SymptoomVerwijderen(string naam, string niveau)
         {
-            _SymptoomBeheer.SymptoomVerwijderen(_SymptoomBeheer.OpvragenNaarNaam(naam));
+            _SymptoomBeheer.SymptoomVerwijderen(_SymptoomBeheer.OpvragenNaarNaam(naam, niveau));
             return RedirectToAction("Overview", "Symptoom");
         }
     }

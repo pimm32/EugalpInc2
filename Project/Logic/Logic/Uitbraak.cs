@@ -34,19 +34,26 @@ namespace Logic
             return landen;
         }
 
-        public void BerekenNieuweBesmettingen(decimal besmettingsgraad)
+        public void UpdateUitbraak(decimal besmettingsgraad, decimal herkenbaarheidsgraad, decimal sterftegraad)
         {
-            
+            this.aantalBesmettingen = BerekenNieuweBesmettingen(besmettingsgraad);
+            this.aantalGeregistreerdeBesmettingen = BerekenNieuweGeregistreerdeBesmettingen(herkenbaarheidsgraad);
+            this.aantalSterfgevalen = BerekenNieuweSterfgevallen(sterftegraad);
         }
 
-        public void BerekenNieuweGeregistreerdeBesmettingen(decimal herkenbaarheidsgraad)
+        public int BerekenNieuweBesmettingen(decimal besmettingsgraad)
         {
-
+            return 1;
         }
 
-        public void BerekenNieuweSterfgevallen(decimal sterftegraad)
+        public int BerekenNieuweGeregistreerdeBesmettingen(decimal herkenbaarheidsgraad)
         {
+            return 1;
+        }
 
+        public int BerekenNieuweSterfgevallen(decimal sterftegraad)
+        {
+            return 1;
         }
     }
 }

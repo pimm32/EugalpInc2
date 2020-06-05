@@ -39,11 +39,23 @@ namespace Logic
             this.aantalDagenSindsEersteUitbraak = 0;
         }
 
+        //
         public void UpdateVirus(List<Land> landen)
         {
+            //Hier update ik elke uitbraak en voeg ik eventuele nieuwe uitbraken toe
             foreach(Uitbraak uitbraak in this.uitbraken)
             {
-
+                //Hier controleer ik of een besmet persoon van het land van de uitbraak een ander land binnenkomt
+                foreach(Land land in uitbraak.BesmetteVerbondenLanden())
+                {
+                    //Hier controleer ik of het land al een besmetting heeft, als dat al zo is hoeft er niets te gebeuren, zo niet wordt er een nieuwe uitbraak toegevoegd
+                    if (!HeeftLandUitbraak(land))
+                    {
+                        VoegUitbraakToe(land);
+                    }
+                }
+                //Hier roep ik de methode in uitbraak aan om zichzelf te updaten met de waardes van het virus
+                uitbraak.UpdateUitbraak(this.besmettingsgraad, this.herkenbaarheidsgraad, this.sterftegraad);
             }
         }
 

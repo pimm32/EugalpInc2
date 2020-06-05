@@ -14,7 +14,7 @@ namespace Logic.DAL_Interfaces
         public IEnumerable<Symptoom> VraagAlleSymptomenOpVanVirus(Virus virus);
         public IEnumerable<Symptoom> VraagAlleSymptomenOp();
         public IEnumerable<Symptoom> VraagAlleSymptomenOpVanNiveau(Niveau niveau);
-        public Symptoom SymptoomSelecteren(string naam);
+        public Symptoom SymptoomSelecteren(string naam, string niveau);
 
     }
 }
