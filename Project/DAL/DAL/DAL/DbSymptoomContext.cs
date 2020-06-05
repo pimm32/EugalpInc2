@@ -41,6 +41,10 @@ namespace DAL
                 }
 
             }
+            else
+            {
+
+            }
             return null;
         }
         public void SymptoomOpslaanInDatabase(Symptoom symptoom)

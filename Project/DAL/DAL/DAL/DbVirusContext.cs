@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Logic.DAL_Interfaces;
+using Logic.DAL_Interfaces.Dto_models;
 
 namespace DAL
 {
     public class DbVirusContext : DbContext, IDbVirusContext
     {
-        public void VirusOpslaanInDatabase(Virus virus)
+        public void VirusOpslaanInDatabase(VirusDto virus)
         {
             string query = "_VirusOpslaan";
             if (this.OpenConnection())
@@ -36,7 +37,7 @@ namespace DAL
             }
         }
 
-        public void VirusAanpassenInDatabase(Virus virus)
+        public void VirusAanpassenInDatabase(VirusDto virus)
         {
             string query = "_VirusAanpassen";
             if (this.OpenConnection())
@@ -60,10 +61,10 @@ namespace DAL
             }
         }
 
-        public Virus VraagVirusOpInDatabase(string naam)
+        public VirusDto VraagVirusOpInDatabase(string naam)
         {
             string query = "_VirusOpvragenNaarNaam";
-            Virus resultaat = null;
+            VirusDto resultaat = null;
             if (this.OpenConnection())
             {
                 try
@@ -74,7 +75,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        resultaat = new Virus(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4));
+                        resultaat = new VirusDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4));
                     }
                     dataReader.Close();
                 }

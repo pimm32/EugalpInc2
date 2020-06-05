@@ -13,7 +13,12 @@ namespace Logic
         public int aantalDagenSindsEersteUitbraak { get; set; }
         public List<Uitbraak> uitbraken;
 
-        public Virus(string naam, decimal bg, decimal hg, decimal sg)
+        static Virus()
+        {
+
+        }
+
+        public void InitieerVirus(string naam, decimal bg, decimal hg, decimal sg)
         {
             this.naam = naam;
             this.besmettingsgraad = bg;
@@ -21,7 +26,8 @@ namespace Logic
             this.sterftegraad = sg;
             this.aantalDagenSindsEersteUitbraak = 0;
         }
-        public Virus(string naam, decimal bg, decimal hg, decimal sg, int dagen)
+
+        public void InitieerVirus(string naam, decimal bg, decimal hg, decimal sg, int dagen)
         {
             this.naam = naam;
             this.besmettingsgraad = bg;
@@ -30,7 +36,7 @@ namespace Logic
             this.aantalDagenSindsEersteUitbraak = dagen;
         }
 
-        public Virus(string naam, Niveau niveau)
+        public void InitieerVirus(string naam, Niveau niveau)
         {
             this.naam = naam;
             this.besmettingsgraad = niveau.standaardBesmettingsgraad;
