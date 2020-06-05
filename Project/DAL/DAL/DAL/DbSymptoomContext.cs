@@ -29,9 +29,9 @@ namespace DAL
                         while (dataReader.Read())
                         {
                             resultaat.naam = dataReader.GetString(0);
-                            resultaat.besmettingsgraadFactor = dataReader.GetDecimal(1);
-                            resultaat.herkenbaarheidsgraadFactor = dataReader.GetDecimal(2);
-                            resultaat.sterftegraadFactor = dataReader.GetDecimal(3);
+                            resultaat.besmettingsgraadFactor = (decimal)dataReader.GetValue(1);
+                            resultaat.herkenbaarheidsgraadFactor = (decimal)dataReader.GetValue(2);
+                            resultaat.sterftegraadFactor = (decimal)dataReader.GetValue(3);
                             resultaat.ernst = dataReader.GetInt32(4);
                             resultaat.prijs = dataReader.GetInt32(5);
                             resultaat.niveau = dataReader.GetString(6);
@@ -257,7 +257,6 @@ namespace DAL
                 }
                 catch (Exception exception)
                 {
-                    resultaat = null;
                     throw new Exception(exception.ToString());
                 }
                 this.CloseConnection();
