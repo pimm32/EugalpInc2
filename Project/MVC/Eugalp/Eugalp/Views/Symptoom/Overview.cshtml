@@ -1,0 +1,42 @@
+﻿@model List<Eugalp.Models.ViewModels.SymptoomViewModel>
+
+<h3>Symptoom Toevoegen</h3>
+
+<div>
+    <h4>Symptoom</h4>
+    <hr />
+    @foreach (Eugalp.Models.ViewModels.SymptoomViewModel item in Model)
+    {
+<dl class="row">
+    <dt class="col-sm-3">
+        @Html.DisplayFor(x => item.naam)
+    </dt>
+    <dt class="col-sm-1">
+        @Html.DisplayFor(x => item.besmettingsgraadFactor)
+    </dt>
+    <dt class="col-sm-1">
+        @Html.DisplayFor(x => item.herkenbaarheidsgraadFactor)
+    </dt>
+    <dt class="col-sm-1">
+        @Html.DisplayFor(x => item.sterftegraadFactor)
+    </dt>
+    <dt class="col-sm-1">
+        @Html.DisplayFor(x => item.ernst)
+    </dt>
+    <dt class="col-sm-1">
+        @Html.DisplayFor(x => item.prijs)
+    </dt>
+    <dt class="col-sm-1">
+        @Html.DisplayFor(x => item.categorie)
+    </dt>
+    <dt class="col-sm-1">
+        @Html.DisplayFor(x => item.niveau)
+    </dt>
+    <dt class="col-sm-1">
+       <a asp-controller="Symptoom" asp-action="Inspecteer" asp-route-naam="@item.naam">Inspecteer</a>
+       @**/Html.ActionLink("inspecteer", "Inspecteer", "Symptoom", item.naam, null)*@
+    </dt>
+</dl>
+    }
+
+</div>

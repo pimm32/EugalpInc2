@@ -13,7 +13,7 @@ namespace DAL
     {
         public Symptoom SymptoomSelecteren(string naam)
         {
-            string query = "_AlleSymptomenOpvragen";
+            string query = "_SymptoomSelecteren";
             Symptoom resultaat;
             if (this.OpenConnection())
             {
@@ -21,14 +21,17 @@ namespace DAL
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-                    while (dataReader.Read())
+                    cmd.Parameters.Add("@naam", MySqlDbType.String).Value = naam;
+                    using (MySqlDataReader dataReader = cmd.ExecuteReader())
                     {
-                        resultaat = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
-                        return resultaat;
-                        
+                        while (dataReader.Read())
+                        {
+                            resultaat = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
+                            return resultaat;
+
+                        }
+                        dataReader.Close();
                     }
-                    dataReader.Close();
                 }
                 catch
                 {
@@ -53,8 +56,8 @@ namespace DAL
                     cmd.Parameters.Add("@sterftegraadFactor", MySqlDbType.Decimal).Value = symptoom.sterftegraadFactor;
                     cmd.Parameters.Add("@ernst", MySqlDbType.Int32).Value = symptoom.ernst;
                     cmd.Parameters.Add("@prijs", MySqlDbType.Int32).Value = symptoom.prijs;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau.naam;
-                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = symptoom.categorie.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = symptoom.categorie;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -82,8 +85,8 @@ namespace DAL
                     cmd.Parameters.Add("@sterftegraadFactor", MySqlDbType.Decimal).Value = symptoom.sterftegraadFactor;
                     cmd.Parameters.Add("@ernst", MySqlDbType.Int32).Value = symptoom.ernst;
                     cmd.Parameters.Add("@prijs", MySqlDbType.Int32).Value = symptoom.prijs;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau.naam;
-                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = symptoom.categorie.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = symptoom.categorie;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -103,7 +106,7 @@ namespace DAL
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@naam", MySqlDbType.String).Value = symptoom.naam;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -124,7 +127,7 @@ namespace DAL
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@naam", MySqlDbType.String).Value = symptoom.naam;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = symptoom.niveau;
                     cmd.Parameters.Add("@virus", MySqlDbType.String).Value = virus.naam;
                     cmd.ExecuteNonQuery();
                 }
@@ -148,7 +151,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();
@@ -176,7 +179,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();
@@ -208,7 +211,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();
@@ -237,7 +240,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5));
+                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();

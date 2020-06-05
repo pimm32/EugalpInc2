@@ -15,11 +15,11 @@ namespace Logic
         public int ernst { get; set; }
         public int prijs { get; set; }
         public bool actief { get; set; }
+        public string niveau { get; set; }
+        public string categorie { get; set; }
 
-        public Niveau niveau { get; set; }
-        public SymptoomCategorie categorie { get; set; }
 
-        public Symptoom(string naam, decimal bgf, decimal hgf, decimal sgf, int ernst, int prijs)
+        public Symptoom(string naam, decimal bgf, decimal hgf, decimal sgf, int ernst, int prijs, string niveau, string categorie)
         {
             this.naam = naam;
             this.besmettingsgraadFactor = bgf;
@@ -28,6 +28,8 @@ namespace Logic
             this.ernst = ernst;
             this.prijs = prijs;
             this.actief = false;
+            this.niveau = niveau;
+            this.categorie = categorie;
         }
 
         public void SymptoomActiveren()

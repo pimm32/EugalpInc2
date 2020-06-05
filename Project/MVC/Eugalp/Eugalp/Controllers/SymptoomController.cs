@@ -29,14 +29,48 @@ namespace Eugalp.Controllers
         public IActionResult Inspecteer(string naam)
         {
             SymptoomViewModel viewmodel = new SymptoomViewModel();
-            Symptoom symptoom = new Symptoom(_SymptoomBeheer.)
-            return View();
+            
+            Symptoom symptoom = _SymptoomBeheer.OpvragenNaarNaam(naam);
+            viewmodel.naam = symptoom.naam;
+            viewmodel.besmettingsgraadFactor = symptoom.besmettingsgraadFactor;
+            viewmodel.herkenbaarheidsgraadFactor = symptoom.herkenbaarheidsgraadFactor;
+            viewmodel.sterftegraadFactor = symptoom.sterftegraadFactor;
+            viewmodel.ernst = symptoom.ernst;
+            viewmodel.prijs = symptoom.prijs;
+            viewmodel.niveau = symptoom.niveau;
+            viewmodel.categorie = symptoom.categorie;
+            return View(viewmodel);
+        }
+        public IActionResult Overview()
+        {
+            List<SymptoomViewModel> model = new List<SymptoomViewModel>();
+            foreach(Symptoom symptoom in _SymptoomBeheer.AlleSymptomen())
+            {
+                SymptoomViewModel viewmodel = new SymptoomViewModel();
+                viewmodel.naam = symptoom.naam;
+                viewmodel.besmettingsgraadFactor = symptoom.besmettingsgraadFactor;
+                viewmodel.herkenbaarheidsgraadFactor = symptoom.herkenbaarheidsgraadFactor;
+                viewmodel.sterftegraadFactor = symptoom.sterftegraadFactor;
+                viewmodel.ernst = symptoom.ernst;
+                viewmodel.prijs = symptoom.prijs;
+                viewmodel.niveau = symptoom.niveau;
+                viewmodel.categorie = symptoom.categorie;
+                model.Add(viewmodel);
+            }
+
+            return View(model);
         }
         [HttpPost]
-        public IActionResult SymptoomToevoegen(string naam, decimal bgf, decimal hgf, decimal sgf, int ernst, int prijs)
+        public IActionResult SymptoomToevoegen(string naam, decimal bgf, decimal hgf, decimal sgf, int ernst, int prijs, string niveau, string categorie)
         {
-            _SymptoomBeheer.SymptoomToevoegen(new Logic.Symptoom(naam, bgf, hgf, sgf, ernst, prijs));
+            _SymptoomBeheer.SymptoomToevoegen(new Logic.Symptoom(naam, bgf, hgf, sgf, ernst, prijs, niveau, categorie));
             return RedirectToAction("Inspecteer", "Symptoom", naam);
+        }
+        [HttpDelete]
+        public IActionResult SymptoomVerwijderen(string naam)
+        {
+            _SymptoomBeheer.SymptoomVerwijderen(_SymptoomBeheer.OpvragenNaarNaam(naam));
+            return RedirectToAction("Overview", "Symptoom");
         }
     }
 }

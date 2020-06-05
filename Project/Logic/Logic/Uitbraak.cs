@@ -18,22 +18,33 @@ namespace Logic
             this.aantalGeregistreerdeBesmettingen = 0;
             this.aantalSterfgevalen = 0;
         }
-        public Uitbraak()
-        {
 
+        public List<Land> BesmetteVerbondenLanden()
+        {
+            List<Land> landen = new List<Land>();
+            foreach(Verbinding verbinding in this.land.VertrekkendVerkeer)
+            {
+                //hier controleer ik of het aantal mensen dat vertrekt uit dit land minimaal 1 besmet iemand heeft, wat een verbonden land zou besmetten
+                if(verbinding.mensenVerkeer>(this.land.inwonersaantal / this.aantalBesmettingen))
+                {
+                    landen.Add(verbinding.aankomstLand);
+                }
+            }
+
+            return landen;
         }
 
-        public void BerekenNieuweBesmettingen(double besmettingsgraad)
+        public void BerekenNieuweBesmettingen(decimal besmettingsgraad)
         {
             
         }
 
-        public void BerekenNieuweGeregistreerdeBesmettingen(double herkenbaarheidsgraad)
+        public void BerekenNieuweGeregistreerdeBesmettingen(decimal herkenbaarheidsgraad)
         {
 
         }
 
-        public void BerekenNieuweSterfgevallen(double sterftegraad)
+        public void BerekenNieuweSterfgevallen(decimal sterftegraad)
         {
 
         }

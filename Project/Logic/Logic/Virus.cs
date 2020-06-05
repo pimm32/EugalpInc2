@@ -39,7 +39,27 @@ namespace Logic
             this.aantalDagenSindsEersteUitbraak = 0;
         }
 
-        public void VoegUitbraakToe(Land land)
+        public void UpdateVirus(List<Land> landen)
+        {
+            foreach(Uitbraak uitbraak in this.uitbraken)
+            {
+
+            }
+        }
+
+        private bool HeeftLandUitbraak(Land land)
+        {
+            foreach(Uitbraak uitbraak in uitbraken)
+            {
+                if(uitbraak.land.naam == land.naam)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void VoegUitbraakToe(Land land)
         {
             Uitbraak uitbraak = new Uitbraak(land);
             this.uitbraken.Add(uitbraak);

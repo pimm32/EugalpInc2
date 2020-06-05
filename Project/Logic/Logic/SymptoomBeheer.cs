@@ -17,6 +17,7 @@ namespace Logic
 
         public Symptoom OpvragenNaarNaam(string naam)
         {
+            
             return _context.SymptoomSelecteren(naam);
         }
 

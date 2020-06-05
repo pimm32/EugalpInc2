@@ -1,0 +1,30 @@
+﻿@model Eugalp.Models.ViewModels.SymptoomViewModel
+
+<h3>Symptoom Toevoegen</h3>
+
+    <h4>Symptoom</h4>
+    <hr/>
+        <dt class="col-sm-3">
+            @Html.DisplayFor(x => Model.naam)
+        </dt>
+        <dt class="col-sm-1">
+            @Html.DisplayFor(x=> Model.besmettingsgraadFactor)
+        </dt>
+        <dt class="col-sm-1">
+            @Html.DisplayFor(x => Model.herkenbaarheidsgraadFactor)
+        </dt>
+        <dt class="col-sm-1">
+            @Html.DisplayFor(x => Model.sterftegraadFactor)
+        </dt>
+        <dt class="col-sm-1">
+            @Html.DisplayFor(x => Model.ernst)
+        </dt>
+        <dt class="col-sm-1">
+            @Html.DisplayFor(x => Model.prijs)
+        </dt>
+        <dt class="col-sm-1">
+            @Html.DisplayFor(x => Model.categorie)
+        </dt>
+        <dt class="col-sm-1">
+            @Html.DisplayFor(x => Model.niveau)
+        </dt>

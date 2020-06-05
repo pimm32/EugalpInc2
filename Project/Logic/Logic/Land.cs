@@ -11,6 +11,8 @@ namespace Logic
         public decimal straatbezetting { get;  set; }
         public decimal doktersbezoeken { get;  set; }
         public List<Maatregel> maatregels;
+        public List<Verbinding> InkomendVerkeer { get; set; }
+        public List<Verbinding> VertrekkendVerkeer { get; set; }
 
         public Land(string naam, int inwoners, decimal sb, decimal db)
         {

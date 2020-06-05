@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using DAL;
 using Logic;
 using Logic.DAL_Interfaces;
+using Logic.Logic_Interfaces;
 
 namespace Eugalp
 {
@@ -28,6 +29,18 @@ namespace Eugalp
         {
             services.AddControllersWithViews();
             services.AddTransient<IDbSymptoomCategorieContext, DbSymptoomCategorieContext>();
+            services.AddTransient<IDbContext, DbContext>();
+            services.AddTransient<IDbMaatregelCategorieContext, DbMaatregelCategorieContext>();
+            services.AddTransient<IDbMaatregelContext, DbMaatregelContext>();
+            services.AddTransient<IDbNiveauContext, DbNiveauContext>();
+            services.AddTransient<IDbSymptoomContext, DbSymptoomContext>();
+            services.AddTransient<IDbUitbraakContext, DbUitbraakContext>();
+            services.AddTransient<IDbVerbindingContext, DbVerbindingContext>();
+            services.AddTransient<IDbVirusContext, DbVirusContext>();
+            //services.AddTransient<ISymptoom, Symptoom>();
+            services.AddTransient<ISymptoomBeheer, SymptoomBeheer>();
+            //services.AddTransient<ISymptoomCategorie, SymptoomCategorie>();
+            //services.AddTransient<ISymptoomCategorieBeheer, SymptoomCategorieBeheer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
