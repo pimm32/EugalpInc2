@@ -27,8 +27,8 @@ namespace DAL
                     cmd.Parameters.Add("@geregistreerdeBesmettingenGrens", MySqlDbType.Decimal).Value = maatregel.geregistreerdeBesmettingenGrens;
                     cmd.Parameters.Add("@sterfteGrens", MySqlDbType.Decimal).Value = maatregel.sterfteGrens;
                     cmd.Parameters.Add("@ernst", MySqlDbType.Int32).Value = maatregel.ernst;
-                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = maatregel.categorie.naam;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau.naam;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = maatregel.categorie;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau;
                     cmd.ExecuteNonQuery();
                 }
                 catch(Exception exception)
@@ -56,8 +56,8 @@ namespace DAL
                     cmd.Parameters.Add("@geregistreerdeBesmettingenGrens", MySqlDbType.Decimal).Value = maatregel.geregistreerdeBesmettingenGrens;
                     cmd.Parameters.Add("@sterfteGrens", MySqlDbType.Decimal).Value = maatregel.sterfteGrens;
                     cmd.Parameters.Add("@ernst", MySqlDbType.Int32).Value = maatregel.ernst;
-                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = maatregel.categorie.naam;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau.naam;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = maatregel.categorie;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau;
                     cmd.ExecuteNonQuery();
                 }
                 catch(Exception exception)
@@ -78,7 +78,7 @@ namespace DAL
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add("@naam", MySqlDbType.String).Value = maatregel.naam;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = maatregel.niveau;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -124,7 +124,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Maatregel maatregel = new Maatregel(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetInt32(3), dataReader.GetDecimal(4), dataReader.GetDecimal(5), dataReader.GetDecimal(6));
+                        Maatregel maatregel = new Maatregel(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetInt32(3), dataReader.GetDecimal(4), dataReader.GetDecimal(5), dataReader.GetDecimal(6), dataReader.GetString(7), niveau.naam);
                         resultaat.Add(maatregel);
                     }
                     dataReader.Close();

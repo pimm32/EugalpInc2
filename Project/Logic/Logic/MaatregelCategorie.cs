@@ -14,9 +14,9 @@ namespace Logic
             maatregels = new List<Maatregel>();
         }
 
-        public void MaatregelToevoegen(string naam, decimal sbf, decimal dbf, int ernst, decimal bg, decimal gbg, decimal sg)
+        public void MaatregelToevoegen(string naam, decimal sbf, decimal dbf, int ernst, decimal bg, decimal gbg, decimal sg, string cat, string niv)
         {
-            Maatregel maatregel = new Maatregel(naam, sbf, dbf, ernst, bg, gbg, sg);
+            Maatregel maatregel = new Maatregel(naam, sbf, dbf, ernst, bg, gbg, sg, cat, niv);
             this.maatregels.Add(maatregel);
         }
     }

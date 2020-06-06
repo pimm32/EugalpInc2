@@ -16,10 +16,10 @@ namespace Logic
         public decimal sterfteGrens { get; set; }
         public bool actief { get; set; }
 
-        public MaatregelCategorie categorie { get; set; }
-        public Niveau niveau { get; set; }
+        public string categorie { get; set; }
+        public string niveau { get; set; }
 
-        public Maatregel(string naam, decimal sbf, decimal dbf, int ernst, decimal bg, decimal gbg, decimal sg)
+        public Maatregel(string naam, decimal sbf, decimal dbf, int ernst, decimal bg, decimal gbg, decimal sg, string cat, string niv)
         {
             this.naam = naam;
             this.straatbezettingFactor = sbf;
@@ -29,6 +29,8 @@ namespace Logic
             this.geregistreerdeBesmettingenGrens = gbg;
             this.sterfteGrens = sg;
             this.actief = false;
+            this.categorie = cat;
+            this.niveau = niv;
         }
 
         public void MaatregelActiveren()
@@ -40,20 +42,14 @@ namespace Logic
         {
             this.actief = false;
         }
-        
-        public void MaatregelInDatabaseOpslaan()
+
+        public bool MoetMaatregelGeactiveerdWorden(decimal besmGr, decimal gerBesmGr, decimal SteGr)
         {
-
-        }
-
-        public void MaatregelInDatabaseAanpassen()
-        {
-
-        }
-
-        public void MaatregelInDatabaseVerwijderen()
-        {
-
+            if(besmGr >= this.besmettingenGrens || gerBesmGr >= this.geregistreerdeBesmettingenGrens || SteGr >= this.sterfteGrens)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
