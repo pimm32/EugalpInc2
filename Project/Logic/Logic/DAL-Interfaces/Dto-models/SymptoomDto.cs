@@ -15,9 +15,20 @@ namespace Logic.DAL_Interfaces.Dto_models
         public bool actief { get; set; }
         public string niveau { get; set; }
         public string categorie { get; set; }
+        public SymptoomDto(string naam, decimal bgf, decimal hgf, decimal sgf, int ernst, int prijs, string niveau, string categorie)
+        {
+            this.naam = naam;
+            this.besmettingsgraadFactor = bgf;
+            this.herkenbaarheidsgraadFactor = hgf;
+            this.sterftegraadFactor = sgf;
+            this.ernst = ernst;
+            this.prijs = prijs;
+            this.niveau = niveau;
+            this.categorie = categorie;
+        }
         public SymptoomDto()
         {
-            //all props
+
         }
     }
 }

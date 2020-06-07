@@ -1,11 +1,12 @@
 ﻿using Logic.DAL_Interfaces;
+using Logic.Logic_Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Logic
 {
-    public class Maatregel
+    public class Maatregel: IMaatregel
     {
         public string naam { get; set; }
         public decimal straatbezettingFactor { get; set; }

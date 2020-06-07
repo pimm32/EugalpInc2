@@ -6,15 +6,16 @@ using System.Collections.Generic;
 using System.Text;
 using Logic.DAL_Interfaces;
 using Logic.Logic_Interfaces;
+using Logic.DAL_Interfaces.Dto_models;
 
 namespace DAL
 {
     public class DbSymptoomContext: DbContext, IDbSymptoomContext
     {
-        public Symptoom SymptoomSelecteren(string naam, string niveau)
+        public SymptoomDto SymptoomSelecteren(string naam, string niveau)
         {
             string query = "_SymptoomSelecteren";
-            Symptoom resultaat = new Symptoom();
+            SymptoomDto resultaat = new SymptoomDto();
 
             if (this.OpenConnection())
             {
@@ -50,7 +51,7 @@ namespace DAL
             }
             return resultaat;
         }
-        public void SymptoomOpslaanInDatabase(Symptoom symptoom)
+        public void SymptoomOpslaanInDatabase(SymptoomDto symptoom)
         {
             string query = "_SymptoomOpslaan";
             if (this.OpenConnection())
@@ -78,7 +79,7 @@ namespace DAL
             }
         }
 
-        public void SymptoomAanpassenInDatabase(Symptoom symptoom)
+        public void SymptoomAanpassenInDatabase(SymptoomDto symptoom)
         {
             string query = "_SymptoomAanpassen";
             if (this.OpenConnection())
@@ -105,7 +106,7 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public void SymptoomVerwijderenUitDatabase(Symptoom symptoom)
+        public void SymptoomVerwijderenUitDatabase(SymptoomDto symptoom)
         {
             string query = "_SymptoomVerwijderen";
             if (this.OpenConnection())
@@ -126,7 +127,7 @@ namespace DAL
             }
         }
 
-        public void SymptoomAanVirusToevoegenInDatabase(Symptoom symptoom, Virus virus)
+        public void SymptoomAanVirusToevoegenInDatabase(SymptoomDto symptoom, VirusDto virus)
         {
             string query = "";
             if (this.OpenConnection())
@@ -147,10 +148,10 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public IEnumerable<Symptoom> VraagAlleSymptomenOp()
+        public IEnumerable<SymptoomDto> VraagAlleSymptomenOp()
         {
             string query = "_AlleSymptomenOpvragen";
-            List<Symptoom> resultaat = new List<Symptoom>();
+            List<SymptoomDto> resultaat = new List<SymptoomDto>();
             if (this.OpenConnection())
             {
                 try
@@ -160,7 +161,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
+                        SymptoomDto symptoom = new SymptoomDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();
@@ -175,21 +176,21 @@ namespace DAL
             return resultaat;
         }
 
-        public IEnumerable<Symptoom> VraagAlleSymptomenOpVanNiveau(Niveau niveau)
+        public IEnumerable<SymptoomDto> VraagAlleSymptomenOpVanNiveau(string niveau)
         {
             string query = "_AlleSymptomenOpvragenVanNiveau";
-            List<Symptoom> resultaat = new List<Symptoom>();
+            List<SymptoomDto> resultaat = new List<SymptoomDto>();
             if (this.OpenConnection())
             {
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
+                        SymptoomDto symptoom = new SymptoomDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();
@@ -204,24 +205,24 @@ namespace DAL
         }
 
         //naar symptoomcollectie DB context?
-        public IEnumerable<Symptoom> VraagAlleSymptomenOpVanCategorieVanNiveau(Niveau niveau, SymptoomCategorie categorie)
+        public IEnumerable<SymptoomDto> VraagAlleSymptomenOpVanCategorieVanNiveau(string niveau, string categorie)
         {
             
             
             string query = "_AlleSymptomenOpvragenVanCategorieVanNiveau";
-            List<Symptoom> resultaat = new List<Symptoom>();
+            List<SymptoomDto> resultaat = new List<SymptoomDto>();
             if (this.OpenConnection())
             {
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau.naam;
-                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = categorie.naam;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau;
+                    cmd.Parameters.Add("@categorie", MySqlDbType.String).Value = categorie;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
+                        SymptoomDto symptoom = new SymptoomDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();
@@ -236,10 +237,10 @@ namespace DAL
             return resultaat;
         }
 
-        public IEnumerable<Symptoom> VraagAlleSymptomenOpVanVirus(Virus virus)
+        public IEnumerable<SymptoomDto> VraagAlleSymptomenOpVanVirus(VirusDto virus)
         {
             string query = "_AlleSymptomenOpvragenVanVirus";
-            List<Symptoom> resultaat = new List<Symptoom>();
+            List<SymptoomDto> resultaat = new List<SymptoomDto>();
             if (this.OpenConnection())
             {
                 try
@@ -250,7 +251,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Symptoom symptoom = new Symptoom(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
+                        SymptoomDto symptoom = new SymptoomDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3), dataReader.GetInt32(4), dataReader.GetInt32(5), dataReader.GetString(6), dataReader.GetString(7));
                         resultaat.Add(symptoom);
                     }
                     dataReader.Close();

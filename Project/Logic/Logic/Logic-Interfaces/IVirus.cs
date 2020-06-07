@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Logic
+namespace Logic.Logic_Interfaces
 {
-    class VirusBeheer
+    public interface IVirus
     {
     }
 }

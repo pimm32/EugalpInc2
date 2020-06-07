@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Logic.Logic_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Logic
 {
-    public class Land
+    public class Land: ILand
     {
         public string naam { get;  set; }
         public int inwonersaantal { get;  set; }

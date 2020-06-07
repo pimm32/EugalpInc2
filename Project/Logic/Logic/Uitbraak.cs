@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Logic.Logic_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Logic
 {
-    public class Uitbraak
+    public class Uitbraak: IUitbraak
     {
         public Land land;
         public int aantalBesmettingen { get; set; }

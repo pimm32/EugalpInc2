@@ -9,10 +9,12 @@ namespace Logic.Tests
     [TestClass()]
     public class VirusTests
     {
+        Virus virus;
+        Niveau niveau;
         [TestInitialize]
         public void InitialisatieVanTesten()
         {
-
+            niveau = new Niveau { naam = "makkelijk", standaardBesmettingsgraad = 1.1m, standaardHerkenbaarheidsgraad = 1.1m, standaardSterftegraad = 1.1m };
         }
         [TestMethod()]
         public void VirusInitierenMetNiveauTest()

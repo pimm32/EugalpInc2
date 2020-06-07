@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.DAL_Interfaces.Dto_models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,6 @@ namespace Logic.DAL_Interfaces
 {
     public interface IDbNiveauContext
     {
-        public Niveau VraagNiveauOpUitDatabase(string niveau);
+        public NiveauDto VraagNiveauOpUitDatabase(string niveau);
     }
 }

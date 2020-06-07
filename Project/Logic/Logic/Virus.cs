@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Logic.Logic_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Logic
 {
-    public class Virus
+    public class Virus: IVirus
     {
         public string naam { get; private set; }
         public decimal besmettingsgraad { get; private set; }

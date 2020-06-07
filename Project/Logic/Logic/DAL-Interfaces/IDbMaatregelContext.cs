@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.DAL_Interfaces.Dto_models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,11 +7,13 @@ namespace Logic.DAL_Interfaces
 {
     public interface IDbMaatregelContext
     {
-        public void MaatregelOpslaanInDatabase(Maatregel maatregel);
-        public void MaatregelAanpassenInDatabase(Maatregel maatregel);
-        public void MaatregelVerwijderenUitDatabase(Maatregel maatregel);
-        public void MaatregelActiefInLandIntDatabaseOpslaan(Maatregel maatregel, Land land);
-        public IEnumerable<Maatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase(Niveau niveau);
+        public MaatregelDto MaatregelSelecteren(string naam, string niveau);
+        public void MaatregelOpslaanInDatabase(MaatregelDto maatregel);
+        public void MaatregelAanpassenInDatabase(MaatregelDto maatregel);
+        public void MaatregelVerwijderenUitDatabase(MaatregelDto maatregel);
+        public void MaatregelActiefInLandIntDatabaseOpslaan(MaatregelDto maatregel, LandDto land);
+        public IEnumerable<MaatregelDto> VraagAlleMaatregelsOpVanNiveauUitDatabase(string niveau);
+        public IEnumerable<MaatregelDto> VraagAlleMaatregelsOp();
 
     }
 }

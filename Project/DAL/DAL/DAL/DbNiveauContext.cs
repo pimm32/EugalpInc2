@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Logic.DAL_Interfaces;
+using Logic.DAL_Interfaces.Dto_models;
 
 namespace DAL
 {
     public class DbNiveauContext: DbContext, IDbNiveauContext
     {
-        public Niveau VraagNiveauOpUitDatabase(string niveau)
+        public NiveauDto VraagNiveauOpUitDatabase(string niveau)
         {
             string query = "";
-            Niveau resultaat = new Niveau();
+            NiveauDto resultaat = new NiveauDto();
             if (this.OpenConnection())
             {
                 try
@@ -24,7 +25,7 @@ namespace DAL
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        resultaat = new Niveau(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3));
+                        resultaat = new NiveauDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3));
                     }
                     dataReader.Close();
                 }

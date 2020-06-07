@@ -20,10 +20,5 @@ namespace Logic
         {
 
         }
-
-        public void VerkeerAanpassen(int nieuwVerkeer)
-        {
-            this.mensenVerkeer = nieuwVerkeer;
-        }
     }
 }

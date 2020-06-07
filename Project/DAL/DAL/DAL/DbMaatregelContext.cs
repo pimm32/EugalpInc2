@@ -6,12 +6,42 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Logic.DAL_Interfaces;
+using Logic.DAL_Interfaces.Dto_models;
+using System.ComponentModel;
 
 namespace DAL
 {
     public class DbMaatregelContext: DbContext, IDbMaatregelContext
     {
-        public void MaatregelOpslaanInDatabase(Maatregel maatregel)
+        public MaatregelDto MaatregelSelecteren(string naam, string niveau)
+        {
+            string query = "_MaatregelSelecteren";
+            MaatregelDto md = new MaatregelDto();
+            if (this.OpenConnection())
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        md = new MaatregelDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetInt32(3), dataReader.GetDecimal(4), dataReader.GetDecimal(5), dataReader.GetDecimal(6), dataReader.GetString(7), dataReader.GetString(8)); ;
+                        
+                    }
+                    dataReader.Close();
+                }
+                catch (Exception exception)
+                {
+                    md = null;
+                    throw new Exception(exception.ToString());
+                }
+                this.CloseConnection();
+            }
+            return md;
+        }
+        public void MaatregelOpslaanInDatabase(MaatregelDto maatregel)
         {
             string query = "MaatregelToevoegen";
             if (this.OpenConnection())
@@ -40,7 +70,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelAanpassenInDatabase(Maatregel maatregel)
+        public void MaatregelAanpassenInDatabase(MaatregelDto maatregel)
         {
             string query = "";
             if (this.OpenConnection())
@@ -68,7 +98,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelVerwijderenUitDatabase(Maatregel maatregel)
+        public void MaatregelVerwijderenUitDatabase(MaatregelDto maatregel)
         {
             string query = "";
             if (this.OpenConnection())
@@ -89,7 +119,7 @@ namespace DAL
             }
         }
 
-        public void MaatregelActiefInLandIntDatabaseOpslaan(Maatregel maatregel, Land land)
+        public void MaatregelActiefInLandIntDatabaseOpslaan(MaatregelDto maatregel, LandDto land)
         {
 
             string query = "";
@@ -110,21 +140,48 @@ namespace DAL
                 this.CloseConnection();
             }
         }
-        public IEnumerable<Maatregel> VraagAlleMaatregelsOpVanNiveauUitDatabase(Niveau niveau)
+        public IEnumerable<MaatregelDto> VraagAlleMaatregelsOp()
         {
-            string query = "";
-            List<Maatregel> resultaat = new List<Maatregel>();
+            string query = "_AlleMaatregelsOpVragen";
+            List<MaatregelDto> resultaat = new List<MaatregelDto>();
             if (this.OpenConnection())
             {
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau.naam;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        Maatregel maatregel = new Maatregel(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetInt32(3), dataReader.GetDecimal(4), dataReader.GetDecimal(5), dataReader.GetDecimal(6), dataReader.GetString(7), niveau.naam);
+                        MaatregelDto maatregel = new MaatregelDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetInt32(3), dataReader.GetDecimal(4), dataReader.GetDecimal(5), dataReader.GetDecimal(6), dataReader.GetString(7), dataReader.GetString(8));
+                        resultaat.Add(maatregel);
+                    }
+                    dataReader.Close();
+                }
+                catch (Exception exception)
+                {
+                    resultaat = null;
+                    throw new Exception(exception.ToString());
+                }
+                this.CloseConnection();
+            }
+            return resultaat;
+        }
+        public IEnumerable<MaatregelDto> VraagAlleMaatregelsOpVanNiveauUitDatabase(string niveau)
+        {
+            string query = "";
+            List<MaatregelDto> resultaat = new List<MaatregelDto>();
+            if (this.OpenConnection())
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@niveau", MySqlDbType.String).Value = niveau;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        MaatregelDto maatregel = new MaatregelDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetInt32(3), dataReader.GetDecimal(4), dataReader.GetDecimal(5), dataReader.GetDecimal(6), dataReader.GetString(7), niveau);
                         resultaat.Add(maatregel);
                     }
                     dataReader.Close();
