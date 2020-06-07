@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Logic
@@ -24,8 +25,9 @@ namespace Logic
             List<Land> landen = new List<Land>();
             foreach(Verbinding verbinding in this.land.VertrekkendVerkeer)
             {
-                //hier controleer ik of het aantal mensen dat vertrekt uit dit land minimaal 1 besmet iemand heeft, wat een verbonden land zou besmetten
-                if(verbinding.mensenVerkeer>(this.land.inwonersaantal / this.aantalBesmettingen))
+                decimal factor = ((decimal)aantalBesmettingen / (decimal)land.inwonersaantal);
+                //hier controleer ik of het aantal mensen dat vertrekt uit dit land gemiddeld 1 besmet iemand heeft, wat een verbonden land zou besmetten
+                if(verbinding.mensenVerkeer *(factor) >= 1)
                 {
                     landen.Add(verbinding.aankomstLand);
                 }
@@ -36,24 +38,26 @@ namespace Logic
 
         public void UpdateUitbraak(decimal besmettingsgraad, decimal herkenbaarheidsgraad, decimal sterftegraad)
         {
-            this.aantalBesmettingen = BerekenNieuweBesmettingen(besmettingsgraad);
-            this.aantalGeregistreerdeBesmettingen = BerekenNieuweGeregistreerdeBesmettingen(herkenbaarheidsgraad);
-            this.aantalSterfgevalen = BerekenNieuweSterfgevallen(sterftegraad);
+            this.aantalBesmettingen += (int)((aantalBesmettingen - aantalSterfgevalen) * besmettingsgraad);
+            //Hier controleer ik of het aantal besmettingen niet hoger is dan het aantal inwoners
+            if(aantalBesmettingen > land.inwonersaantal)
+            {
+                aantalBesmettingen = land.inwonersaantal;
+            }
+            this.aantalGeregistreerdeBesmettingen += (int)((aantalBesmettingen - aantalSterfgevalen) * herkenbaarheidsgraad);
+            //Hier controleer ik of het aantal geregistreerde besmettingen niet hoger is dan het aantal besmettingen
+            if(aantalGeregistreerdeBesmettingen > aantalBesmettingen)
+            {
+                aantalGeregistreerdeBesmettingen = aantalBesmettingen;
+            }
+            this.aantalSterfgevalen += (int)((aantalBesmettingen - aantalSterfgevalen) * sterftegraad);
+            //Hier controleer ik of het aantal sterfgevallen niet hoger is dan het aantal besmettingen <wat praktisch nooit kan voorkomen omdat sterftegraad niet groter dan 1 hoort te zijn
+            if(aantalSterfgevalen > aantalBesmettingen)
+            {
+                aantalSterfgevalen = aantalBesmettingen;
+            }
         }
 
-        public int BerekenNieuweBesmettingen(decimal besmettingsgraad)
-        {
-            return 1;
-        }
-
-        public int BerekenNieuweGeregistreerdeBesmettingen(decimal herkenbaarheidsgraad)
-        {
-            return 1;
-        }
-
-        public int BerekenNieuweSterfgevallen(decimal sterftegraad)
-        {
-            return 1;
-        }
+        
     }
 }

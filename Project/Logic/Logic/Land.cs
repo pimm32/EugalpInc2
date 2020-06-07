@@ -36,11 +36,6 @@ namespace Logic
             MaatregelsToevoegen(maatregels);
             VerbindingenToevoegen(verbindingen);
         }
-        //Internal methode voor unit testen
-        internal void MaatregelsToevoegenVoorTesten(List<Maatregel> maatregels)
-        {
-            MaatregelsToevoegen(maatregels);
-        }
         //Hier worden alle maatregels toegevoegd waarover het land beschikt
         private void MaatregelsToevoegen(List<Maatregel> maatregels)
         {
@@ -51,11 +46,6 @@ namespace Logic
                     this.beschikbareMaatregels.Add(maatregel);
                 }
             }
-        }
-        //Internal bool voor unit testen
-        internal bool BestaatMaatregelAlInLijstVoorTesten(Maatregel maatregel)
-        {
-            return BestaatMaatregelAlInLijst(maatregel);
         }
         //Hier wordt gecontroleerd of een maatregel al in de lijst bestaat
         private bool BestaatMaatregelAlInLijst(Maatregel maatregel)
@@ -68,11 +58,6 @@ namespace Logic
                 }
             }
             return false;
-        }
-        //Internal methode voor unit testen
-        internal void VerbindingenToevoegenVoorTesten(List<Verbinding> verbindingen)
-        {
-            VerbindingenToevoegen(verbindingen);
         }
         //Hier worden alle inkomende en uitgaande verbindingen toegevoegd
         private void VerbindingenToevoegen(List<Verbinding> verbindingen)
@@ -101,11 +86,7 @@ namespace Logic
                 }
             }
         }
-        //Internal methode voor unit testen
-        internal bool BestaatVerbindingAlVoorTesten(Verbinding verbinding, string richting)
-        {
-            return BestaatVerbindingAl(verbinding, richting);
-        }
+        
         //Hier wordt gecontroleerd of een verbinding al in de lijst bestaat, met parameter richting (in/uit)
         private bool BestaatVerbindingAl(Verbinding verbinding, string richting)
         {
@@ -138,7 +119,7 @@ namespace Logic
             {
                 if (!maatregel.actief)
                 {
-                    if(maatregel.MoetMaatregelGeactiveerdWorden((besmettingen / this.inwonersaantal), (geregistreerdeBesmettingen / this.inwonersaantal), (sterfgevallen / this.inwonersaantal)))
+                    if(maatregel.MoetMaatregelGeactiveerdWorden(((decimal)besmettingen / (decimal)this.inwonersaantal), ((decimal)geregistreerdeBesmettingen / (decimal)this.inwonersaantal), ((decimal)sterfgevallen / (decimal)this.inwonersaantal)))
                     {
                         if (!HogereErnstMaatregelActief(maatregel))
                         {
@@ -148,11 +129,7 @@ namespace Logic
                 }
             }
         }
-        //Internal methode voor unit testen
-        internal bool HogereErnstMaatregelActiefVoorTesten(Maatregel maatregel)
-        {
-            return HogereErnstMaatregelActief(maatregel);
-        }
+        
         //Hier wordt gecontroleerd of er een maatregel van dezelfde categorie van dezelfde of hogere ernst actief is
         private bool HogereErnstMaatregelActief(Maatregel maatregel)
         {
@@ -165,11 +142,6 @@ namespace Logic
                 }
             }
             return false;
-        }
-        //Internal methode voor unit testen
-        internal void ActiveerMaatregelVoorTesten(Maatregel maatregel)
-        {
-            ActiveerMaatregel(maatregel);
         }
         //Hier wordt een enkele maatregel geactiveerd
         private void ActiveerMaatregel(Maatregel maatregel)
@@ -192,11 +164,6 @@ namespace Logic
                     UpdateLand((1/mtrl.straatbezettingFactor),(1/ mtrl.doktersbezoekenFactor));
                 }                    
             }
-        }
-        //Internal methode voor unit testen
-        internal void UpdateLandVoorTesten(decimal fac1, decimal fac2)
-        {
-            UpdateLand(fac1, fac2);
         }
 
         //Hier worden de waardes voor straatbezetting en doktersbezoeken geupdate na (de)activering van een maatregel
