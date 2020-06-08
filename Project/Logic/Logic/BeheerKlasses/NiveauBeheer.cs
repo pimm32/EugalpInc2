@@ -21,5 +21,18 @@ namespace Logic
             NiveauDto nd =_context.VraagNiveauOpUitDatabase(naam);
             return new Niveau(nd.naam, nd.standaardBesmettingsgraad, nd.standaardHerkenbaarheidsgraad, nd.standaardSterftegraad);
         }
+
+        public List<Niveau> AlleNiveaus()
+        {
+            List<Niveau> resultaat = new List<Niveau>();
+            IEnumerable<NiveauDto> nds = _context.AlleNiveaus();
+            foreach (NiveauDto nd in nds)
+            {
+                resultaat.Add(new Niveau(nd.naam, nd.standaardBesmettingsgraad, nd.standaardHerkenbaarheidsgraad, nd.standaardSterftegraad));
+
+            }
+
+            return resultaat;
+        }
     }
 }

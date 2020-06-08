@@ -51,8 +51,8 @@ namespace DAL
             }
             catch(MySqlException exception)
             {
-                //TODO exception afhandeling
-                return false;
+                throw new Exception(exception.Message);
+                //return false;
             }
             return true;
         }

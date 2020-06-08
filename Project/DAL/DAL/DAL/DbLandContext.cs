@@ -44,7 +44,7 @@ namespace DAL
         }
         public IEnumerable<LandDto> VraagAlleLandenOpUitDatabase()
         {
-            string query = "";
+            string query = "_AlleLanden";
             List<LandDto> resultaat = new List<LandDto>();
             if (this.OpenConnection())
             {

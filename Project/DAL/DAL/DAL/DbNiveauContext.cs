@@ -38,5 +38,33 @@ namespace DAL
             }
             return resultaat;
         }
+
+        public IEnumerable<NiveauDto> AlleNiveaus()
+        {
+            string query = "_AlleNiveaus";
+            List<NiveauDto> resultaat = new List<NiveauDto>();
+            if (this.OpenConnection())
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        NiveauDto nd = new NiveauDto(dataReader.GetString(0), dataReader.GetDecimal(1), dataReader.GetDecimal(2), dataReader.GetDecimal(3));
+                        resultaat.Add(nd);
+                    }
+                    dataReader.Close();
+                }
+                catch
+                {
+                    resultaat = null;
+                }
+
+                this.CloseConnection();
+            }
+            return resultaat;
+        }
     }
 }

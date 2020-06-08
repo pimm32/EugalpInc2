@@ -57,3 +57,5 @@ C:\Users\pim-a\source\EugalpInc\Project\MVC\Eugalp\Eugalp\obj\Debug\netcoreapp3.
 C:\Users\pim-a\source\EugalpInc\Project\MVC\Eugalp\Eugalp\obj\Debug\netcoreapp3.1\Eugalp.genruntimeconfig.cache
 C:\Users\pim-a\source\EugalpInc\Project\MVC\Eugalp\Eugalp\obj\Debug\netcoreapp3.1\Razor\Views\Symptoom\Inspecteer.cshtml.g.cs
 C:\Users\pim-a\source\EugalpInc\Project\MVC\Eugalp\Eugalp\obj\Debug\netcoreapp3.1\Razor\Views\Symptoom\Overview.cshtml.g.cs
+C:\Users\pim-a\source\EugalpInc\Project\MVC\Eugalp\Eugalp\obj\Debug\netcoreapp3.1\Razor\Views\Virus\Start.cshtml.g.cs
+C:\Users\pim-a\source\EugalpInc\Project\MVC\Eugalp\Eugalp\obj\Debug\netcoreapp3.1\Razor\Views\Virus\EersteUitbraak.cshtml.g.cs

@@ -8,5 +8,6 @@ namespace Logic.DAL_Interfaces
     public interface IDbNiveauContext
     {
         public NiveauDto VraagNiveauOpUitDatabase(string niveau);
+        public IEnumerable<NiveauDto> AlleNiveaus();
     }
 }

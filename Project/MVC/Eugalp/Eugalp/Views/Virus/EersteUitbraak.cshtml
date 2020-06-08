@@ -1,0 +1,36 @@
+﻿@{
+
+    Eugalp.Models.ViewModels.VirusViewModel virus = ViewData["virus"] as Eugalp.Models.ViewModels.VirusViewModel;
+    List<Eugalp.Models.ViewModels.LandViewModel> landen = ViewData["landen"] as List<Eugalp.Models.ViewModels.LandViewModel>;
+}
+
+
+@Html.LabelFor(x => virus.naam)
+@Html.DisplayFor(x => virus.naam)
+<br />
+@Html.LabelFor(x => virus.besmettingsgraad)
+@Html.DisplayFor(x => virus.besmettingsgraad)
+<br />
+@Html.LabelFor(x => virus.herkenbaarheidsgraad)
+@Html.DisplayFor(x => virus.herkenbaarheidsgraad)
+<br />
+@Html.LabelFor(x => virus.sterftegraad)
+@Html.DisplayFor(x => virus.sterftegraad)
+
+@{
+    List<SelectListItem> BeschikbareLanden = new List<SelectListItem>();
+    foreach (Eugalp.Models.ViewModels.LandViewModel model in landen)
+    {
+
+        BeschikbareLanden.Add(new SelectListItem { Text = model.naam });
+
+    }
+}
+
+<br/>
+<br/>
+<br/>
+
+@Html.DropDownList("land", BeschikbareLanden, "kies eerste land om het virus los te laten!")
+
+<a asp-action="Home" asp-controller="Virus">Kies Land</a>

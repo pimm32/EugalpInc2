@@ -15,7 +15,7 @@ namespace Logic
         public List<Uitbraak> uitbraken;
         public List<Symptoom> beschikbareSymptomen { get; set; }
 
-        static Virus()
+        public Virus()
         {
 
         }

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+@*@{
+
+    List<Eugalp.Models.ViewModels.NiveauViewModel> niveaus = ViewData["niveaus"] as List<Eugalp.Models.ViewModels.NiveauViewModel>;
+    Eugalp.Models.ViewModels.VirusViewModel virus = ViewData["Virus"] as Eugalp.Models.ViewModels.VirusViewModel;
+
+}*@
+@model Eugalp.Models.ViewModels.VirusViewModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+    <h3>Virus Maken!</h3>
+
+    <h4>Virus</h4>
+    <hr />
+    @*@{
+        List<SelectListItem> BeschikbareNiveaus = new List<SelectListItem>();
+        foreach (Eugalp.Models.ViewModels.NiveauViewModel niveau in niveaus)
+        {
+
+            BeschikbareNiveaus.Add(new SelectListItem { Text = niveau.naam });
+
+        }
+    }*@
+    <form asp-action="Start" asp-controller="Virus" method="post">
+        @Html.LabelFor(x => Model.naam)
+        @Html.EditorFor(x => Model.naam)
+        @Html.Label("Kies uw niveau")
+        <br />
+        @*@Html.DropDownList("Niveau", BeschikbareNiveaus, "Kies een niveau");*@
+        <br />
+        @Html.LabelFor(x => Model.besmettingsgraad)
+        @Html.EditorFor(x => Model.besmettingsgraad)
+        <br />
+        @Html.LabelFor(x => Model.herkenbaarheidsgraad)
+        @Html.EditorFor(x => Model.herkenbaarheidsgraad)
+        <br />
+        @Html.LabelFor(x => Model.sterftegraad)
+        @Html.EditorFor(x => Model.sterftegraad)
+
+        <input type="submit" value="laat het virus los!" />
+
+    </form>
+</body>
+</html>
