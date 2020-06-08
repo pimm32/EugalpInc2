@@ -18,5 +18,11 @@ namespace Eugalp.Models.ViewModels
         public int aantalDagenSindsEersteUitbraak { get;  set; }
         public List<Uitbraak> uitbraken;
         public List<Symptoom> beschikbareSymptomen { get; set; }
+
+        public VirusViewModel()
+        {
+            beschikbareSymptomen = new List<Symptoom>();
+            uitbraken = new List<Uitbraak>();
+        }
     }
 }

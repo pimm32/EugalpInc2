@@ -12,12 +12,13 @@ namespace Logic
         public decimal herkenbaarheidsgraad { get; private set; }
         public decimal sterftegraad { get; private set; }
         public int aantalDagenSindsEersteUitbraak { get; private set; }
-        public List<Uitbraak> uitbraken;
+        public List<Uitbraak> uitbraken { get; set; }
         public List<Symptoom> beschikbareSymptomen { get; set; }
 
         public Virus()
         {
-
+            uitbraken = new List<Uitbraak>();
+            beschikbareSymptomen = new List<Symptoom>();
         }
 
         public void InitieerVirus(string naam, decimal bg, decimal hg, decimal sg, List<Symptoom> symptomen)
@@ -27,6 +28,8 @@ namespace Logic
             this.herkenbaarheidsgraad = hg;
             this.sterftegraad = sg;
             this.aantalDagenSindsEersteUitbraak = 0;
+            uitbraken = new List<Uitbraak>();
+            beschikbareSymptomen = new List<Symptoom>();
             SymptomenToevoegen(symptomen);
         }
 
@@ -37,6 +40,8 @@ namespace Logic
             this.herkenbaarheidsgraad = hg;
             this.sterftegraad = sg;
             this.aantalDagenSindsEersteUitbraak = dagen;
+            uitbraken = new List<Uitbraak>();
+            beschikbareSymptomen = new List<Symptoom>();
         }
 
         public void InitieerVirus(string naam, Niveau niveau)
@@ -46,6 +51,8 @@ namespace Logic
             this.herkenbaarheidsgraad = niveau.standaardHerkenbaarheidsgraad;
             this.sterftegraad = niveau.standaardSterftegraad;
             this.aantalDagenSindsEersteUitbraak = 0;
+            uitbraken = new List<Uitbraak>();
+            beschikbareSymptomen = new List<Symptoom>();
         }
         //Hier voeg ik alle symptomen toe aan de lijst met beschikbare symptomen
         private void SymptomenToevoegen(List<Symptoom> symptomen)
@@ -155,7 +162,7 @@ namespace Logic
         public void VoegUitbraakToe(Land land)
         {
             Uitbraak uitbraak = new Uitbraak(land);
-            this.uitbraken.Add(uitbraak);
+            uitbraken.Add(uitbraak);
         }
 
         private void VirusWaardeUpdaten(decimal bG, decimal hG, decimal sG)

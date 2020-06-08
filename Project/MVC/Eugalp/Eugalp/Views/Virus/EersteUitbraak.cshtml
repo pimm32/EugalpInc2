@@ -23,14 +23,15 @@
     {
 
         BeschikbareLanden.Add(new SelectListItem { Text = model.naam });
-
+        
     }
 }
 
 <br/>
 <br/>
 <br/>
+<form asp-action="EersteUitbraak" asp-controller="Virus" method="post">
+    @Html.DropDownList("land", BeschikbareLanden, "kies eerste land om het virus los te laten!")
+    <input type="submit" value="Bevestig keuze" />
 
-@Html.DropDownList("land", BeschikbareLanden, "kies eerste land om het virus los te laten!")
-
-<a asp-action="Home" asp-controller="Virus">Kies Land</a>
+</form>

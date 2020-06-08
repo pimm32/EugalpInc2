@@ -14,7 +14,7 @@ namespace DAL
     {
         public LandDto VraagLandOp(string naam)
         {
-            string query = "_vraagLandOp";
+            string query = "_LandSelecteren";
             LandDto resultaat = new LandDto();
             if (this.OpenConnection())
             {

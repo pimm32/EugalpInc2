@@ -41,7 +41,13 @@ namespace Eugalp.Controllers
             ViewData["virus"] = VVM;
             return View(ViewBag);
         }
+        [HttpPost]
+        public IActionResult EersteUitbraak(string land)
+        {
+            _virus.VoegUitbraakToe(_landContext.VraagLandOp(land));
 
+            return Redirect("Home");
+        }
         [HttpPost]
         public IActionResult Start(VirusViewModel VVM)
         {
@@ -60,6 +66,18 @@ namespace Eugalp.Controllers
             }
             ViewData["niveaus"] = niveaus;
             return View();
+        }
+
+        public IActionResult Home()
+        {
+            VirusViewModel VVM = new VirusViewModel();
+            VVM.naam = _virus.naam;
+            VVM.besmettingsgraad = _virus.besmettingsgraad;
+            VVM.herkenbaarheidsgraad = _virus.herkenbaarheidsgraad;
+            VVM.sterftegraad = _virus.sterftegraad;
+            VVM.uitbraken = _virus.uitbraken;
+            ViewData["virus"] = VVM;
+            return View(ViewBag);
         }
     }
 }

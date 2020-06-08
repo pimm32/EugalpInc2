@@ -1,0 +1,23 @@
+﻿@{
+
+    Eugalp.Models.ViewModels.VirusViewModel virus = ViewData["virus"] as Eugalp.Models.ViewModels.VirusViewModel;
+}
+
+
+@Html.LabelFor(x => virus.naam)
+@Html.DisplayFor(x => virus.naam)
+<br />
+@Html.LabelFor(x => virus.besmettingsgraad)
+@Html.DisplayFor(x => virus.besmettingsgraad)
+<br />
+@Html.LabelFor(x => virus.herkenbaarheidsgraad)
+@Html.DisplayFor(x => virus.herkenbaarheidsgraad)
+<br />
+@Html.LabelFor(x => virus.sterftegraad)
+@Html.DisplayFor(x => virus.sterftegraad)
+
+@foreach (Logic.Uitbraak uitbraak in virus.uitbraken)
+{
+    @Html.LabelFor(x => uitbraak.land.naam)
+    @Html.DisplayFor(x => uitbraak.land.naam)
+}

@@ -19,7 +19,10 @@ namespace Logic.Tests
         [TestMethod()]
         public void VirusInitierenMetNiveauTest()
         {
-            throw new NotImplementedException();
+            virus = new Virus();
+            Land land = new Land("test", 100, 0.1m, 0.1m);
+            virus.VoegUitbraakToe(land);
+            Assert.AreEqual(1, virus.uitbraken.Count);
         }
         [TestMethod()]
         public void VirusInitierenMetRauweDataTest()
